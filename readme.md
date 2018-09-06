@@ -1,6 +1,6 @@
 # Caritas Auxilium fullstack capstone
-
 Link to live Web application:
+![logo](https://github.com/PeterAndreas77/caritas-auxilium-fullstack-capstone/blob/master/github-images/logo.png)
 
 # Goal & Use Case
 
