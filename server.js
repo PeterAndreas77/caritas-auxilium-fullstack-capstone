@@ -63,12 +63,12 @@ if (require.main === module) {
 
 // USER ENDPOINTS
 // creating new users
-app.post("/users/signup", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
-  const email = req.body.email;
+app.post("/users/register", (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  let firstname = req.body.firstname;
+  let lastname = req.body.lastname;
+  let email = req.body.email;
 
   username = username.trim();
   password = password.trim();
@@ -78,30 +78,29 @@ app.post("/users/signup", (req, res) => {
 
   bcrypt.genSalt(10, (err, salt) => {
     if (err) res.status(500).json({ message: "Salt Generation Error" });
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err)
+        res.status(500).json({ message: "Password and Salt Hash Error" });
+      User.create(
+        { username, firstname, lastname, email, password: hash },
+        (err, userItem) => {
+          if (err) res.status(500).json({ message: "User Creation Error" });
+          if (userItem) {
+            console.log(`User ${username} created.`);
+            return res.json(userItem);
+          }
+        }
+      );
+    });
   });
-
-  bcrypt.hash(password, salt, (err, hash) => {
-    if (err) res.status(500).json({ message: "Password and Salt Hash Error" });
-  });
-
-  User.create(
-    { username, firstname, lastname, email, password: hash },
-    (err, userItem) => {
-      if (err) res.status(500).json({ message: "User Creation Error" });
-      if (userItem) {
-        console.log(`User ${username} created.`);
-        return res.json(userItem);
-      }
-    }
-  );
 });
 
 // logging users in
-app.post("/users/signin", (req, res) => {
-  const username = req.body.password;
+app.post("/users/login", (req, res) => {
+  const username = req.body.username;
   const password = req.body.password;
 
-  User.findOne({ username }, (err, userItem) => {
+  User.findOne({ username: username }, (err, userItem) => {
     if (err) res.status(500).json({ message: "Database Connection Error" });
     if (!userItem) res.status(500).json({ message: "User Not Found" });
     else {
