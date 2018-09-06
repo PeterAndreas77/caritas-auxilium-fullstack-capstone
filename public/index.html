@@ -19,12 +19,13 @@
             <h1>Caritas Auxilium</h1>
             <nav>
                 <ul>
-                    <li>Register</li>
-                    <li>Login</li>
+                    <li id="register">Register</li>
+                    <li id="login">Login</li>
                 </ul>
             </nav>
         </header>
         <main class="content">
+
             <section class="landing-page">
 
                 <img class="hero-img" src="caritas_logo.png" alt="Caritas Auxilium Logo">
@@ -32,6 +33,55 @@
                 <button class="start-btn">start</button>
             </section>
 
+            <section class="register-page">
+                <form class="register-form">
+                    <fieldset>
+                        <legend>Register</legend>
+                        <div class="form-group">
+                            <label for="registerFirstName">First Name</label>
+                            <input type="text" id="registerFirstName" name="registerFirstName">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerLastName">Last Name</label>
+                            <input type="text" id="registerLastName" name="registerLastName">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerUserName">User Name</label>
+                            <input type="text" id="registerUserName" name="registerUserName">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" name="registerEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="text" id="registerPassword" name="registerPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="text" id="confirmPassword" name="confirmPassword">
+                        </div>
+                        <button class="register-btn" type="submit">register</button>
+                    </fieldset>
+                </form>
+            </section>
+
+            <section class="login-page">
+                <form class="login-page">
+                    <fieldset>
+                        <legend>Login</legend>
+                        <div class="form-group">
+                            <label for="loginUserName">User Name</label>
+                            <input type="text" id="loginUserName" name="loginUserName">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="text" id="loginPassword" name="loginPassword">
+                        </div>
+                        <button class="login-btn" type="submit">login</button>
+                    </fieldset>
+                </form>
+            </section>
         </main>
 
         <footer class="footer" role="contentinfo">
@@ -39,6 +89,10 @@
         </footer>
 
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="client.js"></script>
 </body>
 
 </html>

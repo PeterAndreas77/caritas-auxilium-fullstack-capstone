@@ -56,6 +56,7 @@ body {
   grid-area: content;
   text-align: center;
   font-family: "Roboto";
+  color: #2a363b;
 }
 
 .footer {
@@ -67,12 +68,16 @@ body {
   box-shadow: 0 -2px 5px grey;
 }
 
+.start-btn {
+  font-size: 2rem;
+}
+
 button {
   text-transform: uppercase;
   color: #fff;
   background-color: #e84a5f;
-  font-size: 2rem;
-  padding: 1rem;
+  font-size: 1.5rem;
+  padding: 0.5rem 0.25rem;
   border: 4px solid #e84a5f;
   border-radius: 5px;
   font-weight: bold;
@@ -86,4 +91,25 @@ button:hover {
 
 .landing-page {
   font-size: 1.5rem;
+}
+
+.register-page {
+  display: none;
+}
+
+.login-page {
+  display: none;
+}
+
+form {
+  font-size: 1.5rem;
+}
+
+fieldset {
+  margin: 0 auto;
+  width: 70%;
+}
+
+.form-group {
+  margin-bottom: 1rem;
 }
