@@ -6,14 +6,14 @@ const { app } = require("../server");
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe("API", function() {
-  it("should 200 on GET requests", function() {
+describe("My Site", function() {
+  it("return html", function() {
     return chai
       .request(app)
-      .get("/api/fooooo")
+      .get("/")
       .then(function(res) {
         res.should.have.status(200);
-        res.should.be.json;
+        res.should.be.html;
       });
   });
 });
