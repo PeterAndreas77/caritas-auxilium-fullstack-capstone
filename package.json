@@ -4,6 +4,7 @@
   "description": "Humanitarian Crises & Disaster Donation App",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "mocha"
   },
   "repository": {
