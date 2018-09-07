@@ -8,6 +8,9 @@ const donationSchema = new mongoose.Schema({
   date: { type: String },
   details: { type: String },
   donor: { type: String },
+  charity: { type: String },
+  amount: { type: Number },
+  confNum: { type: String },
   created: { type: Date, default: moment().format("L") },
   donated: { type: Boolean, default: false }
 });
@@ -17,6 +20,16 @@ donationSchema.methods.crisis = function() {
     id: this._id,
     title: this.title,
     date: this.date
+  };
+};
+
+donationSchema.methods.donation = function() {
+  return {
+    id: this._id,
+    title: this.title,
+    charity: this.charity,
+    amount: this.amount,
+    confNum: this.confNum
   };
 };
 

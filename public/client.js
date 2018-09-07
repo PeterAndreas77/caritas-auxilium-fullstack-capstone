@@ -85,6 +85,8 @@ function createCrisis(newObject) {
   })
     .done(() => {
       $(".recent-crisis").hide();
+      //changethis
+      getMyCrisis("jojo");
       $(".my-crisis").show();
     })
     .fail(err => console.log(err));
@@ -128,6 +130,29 @@ function deleteMyCrisis(id) {
 }
 
 // MY DONATION FUNCTIONS
+function getMyDonation(user) {
+  $.ajax({
+    type: "GET",
+    url: `/donation-all/${user}`,
+    dataType: "json",
+    contentType: "application/json"
+  })
+    .done(result => renderMyDonation(result))
+    .fail(err => console.log(err));
+}
+function renderMyDonation(data) {
+  let myDonation = [];
+  for (let i in data) {
+    myDonation += `<div class="crisis-card" donation-id="${data[i].id}">
+    <h4>${data[i].title}</h4>
+    <p>${data[i].confNum}</p>
+    <p><strong>${data[i].amount}</strong> to ${data[i].charity}</p>
+    <button class="update-donation-btn">update</button>
+    <button class="delete-donation-btn">delete</button>
+    </div>`;
+  }
+  $(".my-donation-container").html(myDonation);
+}
 function createMyDonation(newObject) {
   $.ajax({
     type: "PUT",
@@ -138,7 +163,22 @@ function createMyDonation(newObject) {
   })
     .done(() => {
       $(".my-crisis").hide();
+      //changethis
+      getMyDonation("jojo");
       $(".my-donations").show();
+    })
+    .fail(err => console.log(err));
+}
+function deleteMyDonation(id) {
+  $.ajax({
+    type: "DELETE",
+    url: `/donation/delete/${id}`,
+    dataType: "json",
+    contentType: "application/json"
+  })
+    .done(() => {
+      const username = "jojo";
+      getMyDonation(username);
     })
     .fail(err => console.log(err));
 }
@@ -227,6 +267,7 @@ $(document).ready(() => {
   $("#account").on("click", () => {
     $(".recent-crisis").hide();
     $(".my-crisis").hide();
+    $(".my-donation").hide();
     $(".my-account").show();
     //changethis
     let myUserName = "jojo";
@@ -236,6 +277,7 @@ $(document).ready(() => {
   //handle when user clicks recent crisis
   $("#new-crisis").on("click", () => {
     $(".my-crisis").hide();
+    $(".my-donation").hide();
     $(".my-account").hide();
     populateRecentCrisis();
     $(".recent-crisis").show();
@@ -243,7 +285,7 @@ $(document).ready(() => {
 
   populateRecentCrisis();
 
-  // handle user  recent crisis queries
+  // handle user recent crisis queries
   $(".search-btn").on("click", () => {
     const query = $("#searchCrisis").val();
     searchRecentCrisis(query);
@@ -288,6 +330,7 @@ $(document).ready(() => {
   // handle when user click my crisis
   $("#crisis").on("click", () => {
     $(".recent-crisis").hide();
+    $(".my-donation").hide();
     $(".my-account").hide();
     $(".my-crisis").show();
     //changethis
@@ -296,7 +339,7 @@ $(document).ready(() => {
   });
 
   // handle when user want to delete their crisis
-  $(".my-crisis-container").on("click", ".delete-crisis-btn", e => {
+  $(".my-crisis").on("click", ".delete-crisis-btn", e => {
     let IDtoDelete = $(e.currentTarget)
       .closest(".crisis-card")
       .attr("crisis-id");
@@ -329,7 +372,7 @@ $(document).ready(() => {
     const charity = $("#charityName").val();
     const amount = $("#donationAmount").val();
     const confNum = $("#confirmationNumber").val();
-    const created = Date.now();
+    const created = moment().format("L");
     const newDonationObject = {
       id: id,
       charity: charity,
@@ -341,8 +384,27 @@ $(document).ready(() => {
     createMyDonation(newDonationObject);
   });
   // handle when user cancel donation
-  $(".my-crisis").on("click", ".cancel-donate-btn", () => {
+  $(".my-crisis").on("click", ".cancel-donation-btn", e => {
+    e.preventDefault();
     $(".my-crisis-container").show();
     $(".donation-page").hide();
+  });
+
+  // When User Clicks 'My Donations'
+  $("#donations").on("click", () => {
+    $(".recent-crisis").hide();
+    $(".my-account").hide();
+    $(".my-crisis").hide();
+    $(".my-donation").show();
+    //changethis
+    let myUserName = "jojo";
+    getMyDonation(myUserName);
+  });
+  // handle when user want to delete their crisis
+  $(".my-donation").on("click", ".delete-donation-btn", e => {
+    let IDtoDelete = $(e.currentTarget)
+      .closest(".crisis-card")
+      .attr("donation-id");
+    deleteMyDonation(IDtoDelete);
   });
 });

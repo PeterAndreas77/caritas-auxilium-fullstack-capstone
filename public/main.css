@@ -151,11 +151,14 @@ fieldset {
 .my-account p {
   padding: 1rem;
 }
-.recent-crisis {
+.recent-crisis,
+.my-crisis,
+.my-donation {
   margin: 1rem 0.5rem;
 }
 .crisis-container,
-.my-crisis-container {
+.my-crisis-container,
+.my-donation-container {
   display: grid;
   grid-gap: 0.5rem;
   grid-template-columns: minmax(100px, 1fr);
@@ -168,6 +171,7 @@ fieldset {
 }
 .my-crisis,
 .my-account,
+.my-donation,
 .donation-page {
   display: none;
 }

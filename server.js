@@ -178,6 +178,17 @@ app.delete("/crisis/delete/:id", function(req, res) {
 });
 
 // DONATION ENDPOINTS
+// handle donation get requests from client (donation-GET)
+app.get("/donation-all/:user", (req, res) => {
+  Donation.find({ donor: req.params.user })
+    .where("donated")
+    .equals(true)
+    .then(items => res.json(items.map(item => item.donation())))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Get All Donation Error" });
+    });
+});
 // handle donation creation from client (donation-POST)
 app.put("/donation/create/:id", (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id))
@@ -192,6 +203,15 @@ app.put("/donation/create/:id", (req, res) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({ message: "Donation Creation Error" });
+    });
+});
+// handle donation deletion from client (donation-DELETE)
+app.delete("/donation/delete/:id", function(req, res) {
+  Donation.findByIdAndRemove(req.params.id)
+    .then(() => res.status(204).end())
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Donation Deletion Error" });
     });
 });
 
