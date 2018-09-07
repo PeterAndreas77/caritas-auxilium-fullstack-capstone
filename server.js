@@ -9,6 +9,7 @@ const bcrypt = require("bcryptjs");
 // importing modules
 const config = require("./config");
 const User = require("./models/user");
+const Donation = require("./models/donation");
 
 // using middlewares
 const app = express();
@@ -130,6 +131,24 @@ app.get("/user/:user", (req, res) => {
         .status(500)
         .json({ message: "Cannot retrieve user from database" });
     });
+});
+
+// CRISIS ENDPOINTS
+app.post("/crisis/create", (req, res) => {
+  const requiredFields = ["title", "date", "details"];
+  for (let i = 0; i < requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body))
+      res.status(400).send(`Missing ${field} in request body`);
+  }
+  Donation.create({
+    title: req.body.title,
+    date: req.body.date,
+    details: req.body.details,
+    donor: req.body.donor
+  })
+    .then(item => res.status(201).json(item.crisis()))
+    .catch(() => res.status(500).json({ message: "Crisis Creation Error" }));
 });
 
 // catch all endpoint
