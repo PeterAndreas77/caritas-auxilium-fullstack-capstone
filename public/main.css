@@ -151,3 +151,17 @@ fieldset {
 .my-account p {
   padding: 1rem;
 }
+.recent-crisis {
+  margin: 1rem 0.5rem;
+}
+.crisis-container {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: minmax(100px, 1fr);
+}
+.crisis-card {
+  padding: 5px;
+  border: 2px solid #2a363b;
+  box-shadow: 0 2px 4px grey;
+  border-radius: 5px;
+}

@@ -21,6 +21,42 @@ function renderMyAccount(userData) {
   );
 }
 
+function populateRecentCrisis() {
+  $.ajax({
+    type: "GET",
+    url: `https://api.reliefweb.int/v1/reports?appname=caritas`,
+    data: { preset: "latest" },
+    dataType: "json",
+    contentType: "application.json"
+  })
+    .done(result => renderRecentCrisis(result))
+    .fail(err => console.log(err));
+}
+
+function searchRecentCrisis(term) {
+  $.ajax({
+    type: "GET",
+    url: `https://api.reliefweb.int/v1/reports?appname=caritas`,
+    data: { query: { value: term }, preset: "latest" },
+    dataType: "json",
+    contentType: "application/json"
+  })
+    .done(result => renderRecentCrisis(result))
+    .fail(err => console.log(err));
+}
+
+function renderRecentCrisis(result) {
+  const data = result.data;
+  let recentCrisis = [];
+  for (let i in data) {
+    recentCrisis += `<div class="crisis-card">
+    <p>${data[i].fields.title}</p>
+    <a href="#" class="read-more" url="${data[i].href}">${data[i].href}</a>
+    </div>`;
+  }
+  $(".crisis-container").html(recentCrisis);
+}
+
 $(document).ready(() => {
   // handle when user clicks register
   //   $("#register").on("click", () => {
@@ -107,5 +143,23 @@ $(document).ready(() => {
     $(".my-account").show();
     let myUserName = "jojo";
     getMyAccount(myUserName);
+  });
+
+  populateRecentCrisis();
+
+  // handle user crisis queries
+  $(".search-btn").on("click", () => {
+    const query = $("#searchCrisis").val();
+    console.log(query);
+    searchRecentCrisis(query);
+  });
+
+  // handle crisis read more
+  $(".recent-crisis").on("click", ".read-more", e => {
+    let crisisURL = $(e.currentTarget)
+      .closest(".crisis-card")
+      .children("a")
+      .text();
+    crisisReadMore(crisisURL);
   });
 });
