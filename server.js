@@ -2,7 +2,7 @@
 // importing middlewares
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose").set("debug", true);
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 
@@ -134,6 +134,19 @@ app.get("/user/:user", (req, res) => {
 });
 
 // CRISIS ENDPOINTS
+// handle get all crisis from client (crisis-GET)
+app.get("/crisis-all/:user", (req, res) => {
+  Donation.find({ donor: req.params.user })
+    .where("donated")
+    .equals(false)
+    .then(items => res.json(items.map(item => item.crisis())))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Get All Crisis Error" });
+    });
+});
+
+// handle create crisis from client (crisis-POST)
 app.post("/crisis/create", (req, res) => {
   const requiredFields = ["title", "date", "details"];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -148,7 +161,38 @@ app.post("/crisis/create", (req, res) => {
     donor: req.body.donor
   })
     .then(item => res.status(201).json(item.crisis()))
-    .catch(() => res.status(500).json({ message: "Crisis Creation Error" }));
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Crisis Creation Error" });
+    });
+});
+
+// handle crisis deletion from client (crisis-DELETE)
+app.delete("/crisis/delete/:id", function(req, res) {
+  Donation.findByIdAndRemove(req.params.id)
+    .then(() => res.status(204).end())
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Crisis Deletion Error" });
+    });
+});
+
+// DONATION ENDPOINTS
+// handle donation creation from client (donation-POST)
+app.put("/donation/create/:id", (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id))
+    res.status(400).json({ message: "parameter and body IDs must match" });
+  let newObject = {};
+  let newFields = ["charity", "amount", "confNum", "created", "donated"];
+  newFields.forEach(field => {
+    if (field in req.body) newObject[field] = req.body[field];
+  });
+  Donation.findByIdAndUpdate(req.params.id, { $set: newObject }, { new: true })
+    .then(() => res.status(204).end())
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Donation Creation Error" });
+    });
 });
 
 // catch all endpoint

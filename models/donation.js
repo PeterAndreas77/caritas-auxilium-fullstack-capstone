@@ -16,9 +16,7 @@ donationSchema.methods.crisis = function() {
   return {
     id: this._id,
     title: this.title,
-    date: this.date,
-    details: this.details,
-    created: this.created
+    date: this.date
   };
 };
 
