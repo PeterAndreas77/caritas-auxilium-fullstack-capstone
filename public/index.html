@@ -55,11 +55,11 @@
                         </div>
                         <div class="form-group">
                             <label for="registerPassword">Password</label>
-                            <input type="text" id="registerPassword" name="registerPassword">
+                            <input type="password" id="registerPassword" name="registerPassword">
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password</label>
-                            <input type="text" id="confirmPassword" name="confirmPassword">
+                            <input type="password" id="confirmPassword" name="confirmPassword">
                         </div>
                         <button class="register-btn" type="submit">register</button>
                     </fieldset>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group">
                             <label for="loginPassword">Password</label>
-                            <input type="text" id="loginPassword" name="loginPassword">
+                            <input type="password" id="loginPassword" name="loginPassword">
                         </div>
                         <button class="login-btn" type="submit">login</button>
                     </fieldset>
@@ -84,7 +84,31 @@
             </section>
 
             <section class="main-page">
-                <p>Hello World</p>
+                <nav class="sidebar">
+                    <ul>
+                        <li id="donations">My Donations</li>
+                        <li id="charities">My Charities</li>
+                        <li id="account">My Account</li>
+                        <li id="reports">My Reports</li>
+                        <li id="logout">Logout</li>
+                    </ul>
+                </nav>
+                <div class="main-container">
+                    <section class="recent-crisis">
+                        <div class="form-group">
+                            <label for="searchCrisis">Search for crisis</label>
+                            <input type="text" id="searchCrisis" name="searchCrisis">
+                            <button class="search-btn">search</button>
+                        </div>
+                        <div class="crisis-container">
+
+                        </div>
+                    </section>
+
+                    <section class="my-account">
+
+                    </section>
+                </div>
             </section>
         </main>
 

@@ -117,6 +117,21 @@ app.post("/users/login", (req, res) => {
   });
 });
 
+// user account details
+app.get("/user/:user", (req, res) => {
+  User.findOne({ username: req.params.user })
+    .then(user => {
+      console.log(user);
+      return res.json(user.detailed());
+    })
+    .catch(err => {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ message: "Cannot retrieve user from database" });
+    });
+});
+
 // catch all endpoint
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Page Not Found" });

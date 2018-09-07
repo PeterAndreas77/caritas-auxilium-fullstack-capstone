@@ -68,17 +68,19 @@ body {
   box-shadow: 0 -2px 5px grey;
 }
 
-.start-btn {
-  font-size: 2rem;
+.register-btn,
+.login-btn {
+  font-size: 1.5rem;
 }
 
 button {
   text-transform: uppercase;
   color: #fff;
   background-color: #e84a5f;
-  font-size: 1.5rem;
-  padding: 0.5rem 0.25rem;
-  border: 4px solid #e84a5f;
+  font-size: 1rem;
+  padding: 0.25rem 0.1rem;
+  border: 2px solid #e84a5f;
+  box-shadow: 0 2px 4px grey;
   border-radius: 5px;
   font-weight: bold;
 }
@@ -87,17 +89,17 @@ button:hover {
   cursor: pointer;
   color: #e84a5f;
   background-color: #fff;
+  box-shadow: none;
 }
 
 .landing-page {
   font-size: 1.5rem;
 }
 
-.register-page {
-  display: none;
-}
-
-.login-page {
+.register-page,
+.login-page,
+.landing-page,
+.headbar {
   display: none;
 }
 
@@ -114,6 +116,38 @@ fieldset {
   margin-bottom: 1rem;
 }
 
-.main-page {
+/* .main-page {
   display: none;
+} */
+.main-page {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-areas: "sidebar main" ".. main";
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.sidebar li {
+  display: inline-block;
+  padding: 0.5rem 0;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  width: 100%;
+}
+.sidebar li:hover {
+  cursor: pointer;
+  color: #e84a5f;
+}
+.main-container {
+  grid-area: main;
+}
+
+.my-account {
+  width: 80%;
+  margin: 0 auto;
+  text-align: justify;
+}
+.my-account p {
+  padding: 1rem;
 }

@@ -21,6 +21,15 @@ userSchema.methods.validatePassword = function(password, callback) {
   });
 };
 
+userSchema.methods.detailed = function() {
+  return {
+    firstname: this.firstname,
+    lastname: this.lastname,
+    username: this.username,
+    email: this.email
+  };
+};
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
