@@ -108,7 +108,7 @@ function renderMyCrisis(data) {
   for (let i in data) {
     myCrisis += `<div class="crisis-card" crisis-id="${data[i].id}">
     <h4>${data[i].title}</h4>
-    <date>${data[i].date}</date>
+    <p>${data[i].date}</p>
     <button class="donate-btn">donate</button>
     <button class="delete-crisis-btn">delete</button>
     </div>`;
@@ -166,6 +166,22 @@ function createMyDonation(newObject) {
       //changethis
       getMyDonation("jojo");
       $(".my-donations").show();
+    })
+    .fail(err => console.log(err));
+}
+function updateMyDonation(updateObject) {
+  $.ajax({
+    type: "PUT",
+    url: `/donation/update/${updateObject.id}`,
+    data: JSON.stringify(updateObject),
+    dataType: "json",
+    contentType: "application/json"
+  })
+    .done(() => {
+      $(".donation-update-page").hide();
+      //changethis
+      getMyDonation("jojo");
+      $(".my-donation-container").show();
     })
     .fail(err => console.log(err));
 }
@@ -390,7 +406,8 @@ $(document).ready(() => {
     $(".donation-page").hide();
   });
 
-  // When User Clicks 'My Donations'
+  //====== MY DONATIONS PAGE HANDLERS ======
+  // When User Clicks "MY DONATIONS LINK"
   $("#donations").on("click", () => {
     $(".recent-crisis").hide();
     $(".my-account").hide();
@@ -400,11 +417,47 @@ $(document).ready(() => {
     let myUserName = "jojo";
     getMyDonation(myUserName);
   });
-  // handle when user want to delete their crisis
+
+  // When User Clicks "UPDATE-BUTTON" button on "MY DONATIONS"
+  $(".my-donation").on("click", ".update-donation-btn", e => {
+    const id = $(e.currentTarget)
+      .closest(".crisis-card")
+      .attr("donation-id");
+    $(".my-donation-container").hide();
+    $(".donation-update-page").show();
+    $("#IDUpdater").attr("donation-id", id);
+  });
+
+  // When User Clicks "DELETE-BUTTON" on "MY DONATIONS"
   $(".my-donation").on("click", ".delete-donation-btn", e => {
     let IDtoDelete = $(e.currentTarget)
       .closest(".crisis-card")
       .attr("donation-id");
     deleteMyDonation(IDtoDelete);
+  });
+
+  // When User Clicks "SUBMIT-BUTTON" on "DONATION UPDATE FORM"
+  $(".donation-update-form").submit(e => {
+    e.preventDefault();
+    const id = $("#IDUpdater").attr("donation-id");
+    const charity = $("#charityUpdate").val();
+    const amount = $("#amountUpdate").val();
+    const confNum = $("#confNumUpdate").val();
+    const created = moment().format("L");
+    const updateObject = {
+      id: id,
+      charity: charity,
+      amount: amount,
+      confNum: confNum,
+      created: created
+    };
+    updateMyDonation(updateObject);
+  });
+
+  // When User Clicks "CANCEL-BUTTON" on "DONATION UPDATE FORM"
+  $(".my-donation").on("click", ".cancel-update-btn", e => {
+    e.preventDefault();
+    $(".my-donation-container").show();
+    $(".donation-update-page").hide();
   });
 });

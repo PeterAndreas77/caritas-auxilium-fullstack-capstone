@@ -205,6 +205,23 @@ app.put("/donation/create/:id", (req, res) => {
       res.status(500).json({ message: "Donation Creation Error" });
     });
 });
+
+// handle donation update from client (donation-PUT)
+app.put("/donation/update/:id", (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id))
+    res.status(400).json({ message: "parameter and body IDs must match" });
+  let newObject = {};
+  let newFields = ["charity", "amount", "confNum", "created"];
+  newFields.forEach(field => {
+    if (field in req.body) newObject[field] = req.body[field];
+  });
+  Donation.findByIdAndUpdate(req.params.id, { $set: newObject }, { new: true })
+    .then(() => res.status(204).end())
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Donation Update Error" });
+    });
+});
 // handle donation deletion from client (donation-DELETE)
 app.delete("/donation/delete/:id", function(req, res) {
   Donation.findByIdAndRemove(req.params.id)
