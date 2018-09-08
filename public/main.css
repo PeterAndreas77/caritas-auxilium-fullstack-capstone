@@ -144,19 +144,16 @@ fieldset {
   grid-area: main;
 }
 
-.my-account {
-  width: 80%;
-  margin: 0 auto;
-  text-align: justify;
-}
-.my-account p {
-  padding: 1rem;
-}
 .recent-crisis,
 .my-crisis,
-.my-donation {
+.my-donation,
+.my-account {
   margin: 1rem 0.5rem;
 }
+.my-account p {
+  margin-bottom: 1rem;
+}
+
 .crisis-container,
 .my-crisis-container,
 .my-donation-container {
@@ -175,6 +172,7 @@ fieldset {
 .my-donation,
 .my-report,
 .donation-page,
-.donation-update-page {
+.donation-update-page,
+.account-update-page {
   display: none;
 }

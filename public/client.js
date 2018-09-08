@@ -265,6 +265,7 @@ function deleteMyDonation(id) {
 //====== MY ACCOUNT FUNCTIONS ======
 // Function to Get User's Account Details from the Database
 function getMyAccount(myName) {
+  // Make a GET Request with the Logged In UserName
   $.ajax({
     type: "GET",
     url: `/user/${myName}`,
@@ -277,15 +278,42 @@ function getMyAccount(myName) {
     .fail(err => console.log(err));
 }
 
+function updateMyAccount(updateObject) {
+  // Make a PUT Request to User Endpoint
+  $.ajax({
+    type: "PUT",
+    url: `/user/update/${updateObject.username}`,
+    data: JSON.stringify(updateObject),
+    dataType: "json",
+    contentType: "application/json"
+  })
+    // If Request is Successful
+    .done(() => {
+      // Hide account-update-page
+      $(".account-update-page").hide();
+      //changethis
+      let loggedInUser = "jojo";
+      // Rerender User's Account Info
+      getMyAccount(loggedInUser);
+      // Show my-account-container
+      $(".my-account-container").show();
+    })
+    // If Request Failed, Log the Error
+    .fail(err => console.log(err));
+}
+
 // Function to Render User's Account Details to the Page
 function renderMyAccount(userData) {
   // Initialize the String Template
-  const myAccountInfo = `<p>First Name: ${userData.firstname}</p>
+  const myAccountInfo = `<p>Avatar</p>
+  <img src="https://via.placeholder.com/150x150" class="user-avatar" alt="User Avatar">
+  <p>First Name: ${userData.firstname}</p>
   <p>Last Name: ${userData.lastname}</p>
   <p>User Name: ${userData.username}</p>
-  <p>Email: ${userData.email}</p>`;
+  <p>Email: ${userData.email}</p>
+  <button class="account-update-btn">update</button>`;
   //Insert User Info into the DOM
-  $(".my-account").html(myAccountInfo);
+  $(".my-account-container").html(myAccountInfo);
 }
 
 $(document).ready(() => {
@@ -596,6 +624,56 @@ $(document).ready(() => {
     $(".my-report").hide();
     // Show and Render User's Account Info
     $(".my-account").show();
+    //changethis
+    let loggedInUser = "jojo";
+    getMyAccount(loggedInUser);
+  });
+
+  // When User Clicks "UPDATE BUTTON" on "MY ACCOUNT"
+  $(".my-account").on("click", ".account-update-btn", () => {
+    $(".my-account-container").hide();
+    $(".account-update-page").show();
+  });
+
+  // When User Clicks "SUBMIT BUTTON" on "ACCOUNT UPDATE FORM"
+  $(".account-update-form").submit(e => {
+    // Prevent Bubbling
+    e.preventDefault();
+    // Get the Values from Field Inputs
+    const firstname = $("#updateFirstName").val();
+    const lastname = $("#updateLastName").val();
+    const email = $("#updateEmail").val();
+    //changethis
+    let loggedInUser = "jojo";
+    // Create Update Object to Pass on
+    const updateObject = {
+      username: loggedInUser,
+      firstname: firstname,
+      lastname: lastname,
+      email: email
+    };
+    console.log(loggedInUser);
+    // Pass UpdateObject to Update User's Account
+    updateMyAccount(updateObject);
+  });
+
+  // When User Clicks "CANCEL BUTTON" on "ACCOUNT UPDATE FORM"
+  $(".my-account").on("click", ".cancel-account-update", e => {
+    e.preventDefault();
+    $(".account-update-page").hide();
+    $(".my-account-container").show();
+  });
+
+  //====== MY REPORT PAGE HANDLERS ======
+  // When User Clicks "MY REPORT LINK"
+  $("#reports").on("click", () => {
+    // Hide Other Sections
+    $(".recent-crisis").hide();
+    $(".my-crisis").hide();
+    $(".my-donation").hide();
+    $(".my-account").hide();
+    // Show and Render User's Report
+    $(".my-report").show();
     //changethis
     let loggedInUser = "jojo";
     getMyAccount(loggedInUser);

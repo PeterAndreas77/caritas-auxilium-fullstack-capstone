@@ -133,6 +133,33 @@ app.get("/user/:user", (req, res) => {
     });
 });
 
+// user update details
+app.put("/user/update/:username", (req, res) => {
+  if (
+    !(
+      req.params.username &&
+      req.body.username &&
+      req.params.username === req.body.username
+    )
+  )
+    res.status(400).json({ message: "username is not supplied" });
+  let updateObject = {};
+  let updateFields = ["firstname", "lastname", "email"];
+  updateFields.forEach(field => {
+    if (field in req.body) updateObject[field] = req.body[field];
+  });
+  User.findOneAndUpdate(
+    { username: req.params.username },
+    { $set: updateObject },
+    { new: true }
+  )
+    .then(() => res.status(204).end())
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Account Update Error" });
+    });
+});
+
 // CRISIS ENDPOINTS
 // handle get all crisis from client (crisis-GET)
 app.get("/crisis-all/:user", (req, res) => {
