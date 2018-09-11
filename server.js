@@ -250,12 +250,32 @@ app.put("/donation/update/:id", (req, res) => {
     });
 });
 // handle donation deletion from client (donation-DELETE)
-app.delete("/donation/delete/:id", function(req, res) {
+app.delete("/donation/delete/:id", (req, res) => {
   Donation.findByIdAndRemove(req.params.id)
     .then(() => res.status(204).end())
     .catch(err => {
       console.error(err);
       res.status(500).json({ message: "Donation Deletion Error" });
+    });
+});
+
+// DONATION REPORT ENDPOINT
+app.get("/report/:user", (req, res) => {
+  const reportYear = parseInt(req.params.year);
+  Donation.aggregate([
+    { $match: { donor: req.params.user, donated: true } },
+    {
+      $group: {
+        _id: { year: { $year: "$created" }, month: { $month: "$created" } },
+        total: { $sum: "$amount" },
+        count: { $sum: 1 }
+      }
+    }
+  ])
+    .then(item => res.json(item))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Report Generation Error" });
     });
 });
 

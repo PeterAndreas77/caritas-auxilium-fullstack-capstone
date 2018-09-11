@@ -212,7 +212,7 @@ function createMyDonation(newObject) {
       // Render User Donations
       getMyDonation(loggedInUser);
       // Show my-donations
-      $(".my-donations").show();
+      $(".my-donation").show();
     })
     // If Request Failed, Log the Error
     .fail(err => console.log(err));
@@ -314,6 +314,44 @@ function renderMyAccount(userData) {
   <button class="account-update-btn">update</button>`;
   //Insert User Info into the DOM
   $(".my-account-container").html(myAccountInfo);
+}
+
+//====== MY REPORT FUNCTIONS ======
+// Function to Pull User Report from the Database
+function pullReport(year) {
+  //changethis
+  let loggedInUser = "jojo";
+  // Make a GET Request with the Logged In UserName
+  $.ajax({
+    type: "GET",
+    url: `/report/${loggedInUser}`,
+    dataType: "json",
+    contentType: "application/json"
+  })
+    // If Request is Successful, Render the Result
+    .done(result => renderReport(result, year))
+    // If Request Failed, Log the Error
+    .fail(err => console.log(err));
+}
+// Function to Render User Report to the Page
+function renderReport(result, year) {
+  const data = result[0];
+  let ctx = document.getElementById("myChart").getContext("2d");
+  let myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [moment.monthsShort(data._id.month - 1)],
+      datasets: [
+        {
+          label: " Amount of Donations per Month",
+          data: [data.total],
+          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+          borderColor: ["rgba(255, 99, 132, 1)"],
+          borderWidth: 1
+        }
+      ]
+    }
+  });
 }
 
 $(document).ready(() => {
@@ -468,9 +506,11 @@ $(document).ready(() => {
     $(".recent-crisis").hide();
     $(".my-donation").hide();
     $(".my-account").hide();
-    $(".my-report").show();
+    $(".my-report").hide();
     // Show and Render User's Crisis
     $(".my-crisis").show();
+    $(".my-crisis-container").show();
+    $(".donation-page").hide();
     //changethis
     let loggedInUser = "jojo";
     getMyCrisis(loggedInUser);
@@ -494,6 +534,8 @@ $(document).ready(() => {
     $(".my-crisis-container").hide();
     // Show donation-page
     $(".donation-page").show();
+    $(".my-donation-page").show();
+    $(".donation-update-page").hide();
     // Pass the Values to donation-page
     $("#crisisTitleDP").html(title);
     $("#crisisDateDP").html(date);
@@ -677,5 +719,11 @@ $(document).ready(() => {
     //changethis
     let loggedInUser = "jojo";
     getMyAccount(loggedInUser);
+  });
+  // When User Clicks "SEARCH BUTTON" on "MY REPORT"
+  $(".pull-report-btn").on("click", () => {
+    // Get the Value and Pass it to Pull Report Function
+    const reportYear = parseInt($("#reportYear").val(), 10);
+    pullReport(reportYear);
   });
 });

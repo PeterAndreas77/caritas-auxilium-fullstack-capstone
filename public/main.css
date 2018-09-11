@@ -147,7 +147,8 @@ fieldset {
 .recent-crisis,
 .my-crisis,
 .my-donation,
-.my-account {
+.my-account,
+.my-report {
   margin: 1rem 0.5rem;
 }
 .my-account p {
@@ -175,4 +176,9 @@ fieldset {
 .donation-update-page,
 .account-update-page {
   display: none;
+}
+
+#myChart {
+  width: 90%;
+  height: 90%;
 }
