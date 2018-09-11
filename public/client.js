@@ -345,8 +345,8 @@ function renderReport(result, year) {
         {
           label: " Amount of Donations per Month",
           data: [data.total],
-          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-          borderColor: ["rgba(255, 99, 132, 1)"],
+          backgroundColor: ["rgba(232, 74, 95, 0.2)"],
+          borderColor: ["rgba(232, 74, 95, 1)"],
           borderWidth: 1
         }
       ]
