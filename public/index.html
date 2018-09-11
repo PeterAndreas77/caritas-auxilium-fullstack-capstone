@@ -16,11 +16,12 @@
     <div class="container">
 
         <header class="header" role="banner">
-            <h1>Caritas Auxilium</h1>
+            <h1 class="main-logo">Caritas Auxilium</h1>
             <nav class="headbar">
                 <ul>
-                    <li id="register">Register</li>
-                    <li id="login">Login</li>
+                    <li id="home">Home <i class="fas fa-home"></i></li>
+                    <li id="register">Register <i class="fas fa-pencil-alt"></i></li>
+                    <li id="login">Login <i class="fas fa-sign-in-alt"></i></li>
                 </ul>
             </nav>
         </header>
@@ -37,50 +38,74 @@
                 <section id="feature-page">
                     <h2 class="feature-title">App Features</h2>
                     <div class="feature-img">
-                        <img src="https://via.placeholder.com/300x300" alt="feature-image">
+                        <img src="https://images.unsplash.com/photo-1535402803947-a950d5f7ae4b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a1ee9193f083f265226c9d0e0b3ec8c9&auto=format&fit=crop&w=500&q=60"
+                            alt="feature-image">
+                        <p><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
                     </div>
-                    <div class="feature-content">
-                        <p>First Feature. This App saves confirmation number of your donations, so you do not have to remember
-                            or having the risk of losing them in the laundry bin</p>
-                        <p>Second Feature. This App uses the latest and most recent crisis from Relief Web API, which is
-                            a public API for humanitarian crisis and disasters maintained by United Nations.</p>
-                        <p>Third Feature. This App uses a robust search algorithm so you can search by terms without modifying
-                            them. Of course, the algorithm is not a wizard, so make sure you have the right spelling.</p>
-                        <p>Fourth Feature. This App can make a report of your donations per year. Easy to print and You can
-                            use them to fill your tax deductions.</p>
+                    <div class="feature-set">
+                        <h3 class="set-title">Convenience</h3>
+                        <p>Caritas Auxilium saves confirmation number of your donations and charity names, so you do not
+                            have to remember them or have the risk of losing them while doing laundry. Furthermore, this
+                            App make a report of your donations per year. Easy to print and You can use the report summary
+                            to fill into your tax deductions. Printer and Ink sold separately.</p>
+                    </div>
+                    <div class="feature-set">
+                        <h3 class="set-title">Robust</h3>
+                        <p>Caritas Auxilium uses the latest and most recent crisis from Relief Web API, which is a public
+                            API for humanitarian crisis and disasters maintained by United Nations. As a result, the app
+                            uses a robust search algorithm so you can search by terms without modifying them. Of course,
+                            the algorithm is not a wizard or a magician, so make sure you have the right spelling when you
+                            want to look for something.</p>
+                    </div>
+                    <div class="feature-set">
+                        <h3 class="set-title">Language</h3>
+                        <p>Caritas Auxilium means something entirely different in Latin. It's not just the name of an App.
+                            <em>Caritas</em> means the virtue of altruistic love, and <em>Auxilium</em> means to help or
+                            to relief. So, combined they will be the altruistic love to help or relief people. This app is
+                            like the duolingo for Latin.</p>
                     </div>
                 </section>
 
                 <section id="howto-page">
                     <h2 class="howto-title">How To Use</h2>
                     <div class="howto-img">
-                        <img src="https://via.placeholder.com/300x100" alt="howto-image">
+                        <img src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc8be37d913994b3540169a890e2242d&auto=format&fit=crop&w=500&q=60"
+                            alt="howto-image">
+                        <p><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
                     </div>
                     <div class="howto-content">
                         <ol>
-                            <li>User must register or login to use this app. You have no heart if you don't. There are crisis
-                                out there and people need help.</li>
-                            <li>To register, click the link on the landing page header that says <span class="fake-btn">register</span>.</li>
-                            <li>To Login, click the link on the landing page header that says <span class="fake-btn">login</span>.</li>
-                            <li>Once You register or logged if, you will be in the main user page. Menu is hidden at the
-                                top, while your main page is populated with the latest ten crisis from around the globe.</li>
-                            <li>Click the link on each card to read more of the crisis.</li>
-                            <li>You can then choose the crisis you deemed worthy. The <span class="fake-btn">donate</span>
-                                is located below the crisis.</li>
-                            <li>If you don't think people need help, you can cancel the crisis to go back to the latest crisis,
-                                using the <span class="fake-btn">cancel</span> button.</li>
+                            <li>You must register or login to use this app.</li>
+                            <li>Click <span class="fake-btn">register</span> on the header to be taken to the register page.
+                                You will be prompted to fill out a registration form.</li>
+                            <li>Click <span class="fake-btn">login</span> on the header to be taken to the login page. You
+                                will be asked to enter your username and password.</li>
+                            <li>Once You registered or logged in, you will be inside the main user page, which is populated
+                                with the latest ten crisis from around the globe.</li>
+                            <li>Click the <span class="fake-btn">link</span> on any crisis card to read more of the crisis
+                                that interest you.</li>
+                            <li>You can add any crisis that interest you to your crisis collection by clicking the <span
+                                    class="fake-btn">add</span> button.</li>
+                            <li>Clicking the <span class="fake-btn">cancel</span> button will return you to the recent crisis
+                                page.
+                            </li>
                             <li>You can also <span class="fake-btn">search</span> for any crisis using any search term. The
-                                result is limited to ten.</li>
-                            <li>Your chosen crisis are located on <span class="fake-btn">my crisis</span>.</li>
+                                result is limited to ten crisis.</li>
+                            <li>The crisis you added are located on <span class="fake-btn">my crisis</span>.</li>
                             <li>You can search for a specific crisis you have chosen by using the <span class="fake-btn">search</span>
                                 bar.</li>
-                            <li>To donate, click the <span class="fake-btn">donate</span> button on the crisis card.</li>
-                            <li>You are then prompted to fill out a form to keep a record of your donation. (Unfortunately,
+                            <li>Click the <span class="fake-btn">donate</span> button on the crisis card to donate to that
+                                crisis. You are then prompted to fill out a form to keep a record of your donation. (Unfortunately,
                                 there is no charity API with a robust search features, so you have to do your own googling
                                 to find your own charity to donate to the chosen crisis)</li>
                             <li>Again, if you don't want to donate to that crisis, you can click the <span class="fake-btn">cancel</span>
-                                button, conveniently located to the <span class="fake-btn">donate</span>button.</li>
+                                button.</li>
+                            <li>Click <span class="fake-btn">delete</span> on the crisis card to delete a crisis from your
+                                collection.
+                            </li>
                             <li>You can look at a list of your donations when you click <span class="fake-btn">my donations</span>.</li>
+                            <li>Click <span class="fake-btn">update</span> to update your chosen donation.</li>
+                            <li>Click <span class="fake-btn">delete</span> to delete your chosen donation.</li>
                             <li>You can search for a specific donation using the <span class="fake-btn">search</span> bar.</li>
                             <li><span class="fake-btn">my account</span> contain the details of your account. You can change
                                 your first name, last name, and email address, nothing more.</li>
@@ -96,7 +121,7 @@
             <section class="register-page">
                 <form class="register-form">
                     <fieldset>
-                        <legend>Register</legend>
+                        <h2>Please fill out this form</h2>
                         <div class="form-group">
                             <label for="registerFirstName">First Name</label>
                             <input type="text" id="registerFirstName" name="registerFirstName">
@@ -129,7 +154,7 @@
             <section class="login-page">
                 <form class="login-form">
                     <fieldset>
-                        <legend>Login</legend>
+                        <h2>Please enter your username and password</h2>
                         <div class="form-group">
                             <label for="loginUserName">User Name</label>
                             <input type="text" id="loginUserName" name="loginUserName">
@@ -146,12 +171,12 @@
             <section class="main-page">
                 <nav class="sidebar">
                     <ul>
-                        <li id="new-crisis">Recent Crisis</li>
-                        <li id="crisis">My Crisis</li>
-                        <li id="donations">My Donations</li>
-                        <li id="account">My Account</li>
-                        <li id="reports">My Reports</li>
-                        <li id="logout">Logout</li>
+                        <li id="new-crisis"><i class="fas fa-hands-helping"></i>Recent Crisis</li>
+                        <li id="crisis"><i class="fas fa-donate"></i>My Crisis</li>
+                        <li id="donations"><i class="fas fa-file-invoice-dollar"></i>My Donations</li>
+                        <li id="account"><i class="fas fa-cogs"></i>My Account</li>
+                        <li id="reports"><i class="fas fa-chart-bar"></i>My Reports</li>
+                        <li id="logout"><i class="fas fa-sign-out-alt"></i>Logout</li>
                     </ul>
                 </nav>
                 <div class="main-container">

@@ -1,11 +1,25 @@
+/* === GENERAL STYLING === */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+}
+form {
+  font-size: 1.5rem;
+}
+fieldset {
+  margin: 0 auto;
+  width: 70%;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
 
 .container {
-  max-width: 1028px;
+  max-width: 100%;
   height: 100vh;
   margin: 0 auto;
   display: grid;
@@ -34,25 +48,6 @@ body {
   text-transform: uppercase;
 }
 
-.header nav {
-  float: right;
-  font-size: 1.5rem;
-}
-
-.header li {
-  display: inline-block;
-  padding: 0 1rem;
-}
-
-.header li:hover {
-  cursor: pointer;
-  color: #f85f73;
-}
-
-.hero-img {
-  width: 50%;
-}
-
 .content {
   grid-area: content;
   text-align: center;
@@ -67,11 +62,6 @@ body {
   color: #fbe8d3;
   background-color: #283c63;
   box-shadow: 0 -2px 5px #928a97;
-}
-
-.register-btn,
-.login-btn {
-  font-size: 1.5rem;
 }
 
 button {
@@ -92,28 +82,6 @@ button:hover {
   color: #f85f73;
   background-color: #fff;
   box-shadow: none;
-}
-
-.landing-page {
-  font-size: 1.5rem;
-}
-
-.register-page,
-.login-page {
-  display: none;
-}
-
-form {
-  font-size: 1.5rem;
-}
-
-fieldset {
-  margin: 0 auto;
-  width: 70%;
-}
-
-.form-group {
-  margin-bottom: 1rem;
 }
 
 .main-page {
@@ -179,25 +147,20 @@ fieldset {
   height: 90%;
 }
 
-/* LANDING PAGE STYLES */
-#hero-page,
-#feature-page {
+/* === LANDING PAGE STYLES === */
+.landing-page {
+  font-size: 1.5rem;
+}
+.main-logo {
+  display: none;
+}
+/* Hero Page */
+#hero-page {
   height: 100vh;
 }
-
-.feature-content,
-.howto-content {
-  text-align: left;
+.hero-img {
+  width: 50%;
 }
-
-.howto-content ol li {
-  line-height: 1.4;
-}
-
-a {
-  text-decoration: none;
-}
-
 .button {
   margin: 10px 20px;
   text-transform: uppercase;
@@ -210,7 +173,6 @@ a {
   border-radius: 10px;
   font-weight: bold;
 }
-
 .button:hover {
   cursor: pointer;
   color: #f85f73;
@@ -218,6 +180,44 @@ a {
   box-shadow: none;
 }
 
+/* Feature Page */
+#feature-page {
+  width: 96%;
+  padding: 0 1rem;
+  margin: 1rem auto;
+}
+.feature-title {
+  text-align: center;
+}
+.feature-img {
+  margin: 0 auto;
+  width: 60%;
+}
+.feature-set,
+.set-title {
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* How To Page */
+#howto-page {
+  width: 96%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+.howto-title {
+  text-align: center;
+}
+.howto-img {
+  margin: 1rem auto;
+  width: 60%;
+}
+.howto-content {
+  text-align: left;
+}
+.howto-content ol li {
+  line-height: 1.4;
+}
 .fake-btn {
   text-transform: uppercase;
   color: #fff;
@@ -226,4 +226,119 @@ a {
   padding: 0.1rem;
   border: 2px solid #f85f73;
   border-radius: 4px;
+}
+
+/* === NAVIGATION BAR === */
+/* Header NavBar */
+.headbar {
+  font-size: 1.5rem;
+  text-align: right;
+}
+.headbar ul {
+  list-style: none;
+}
+.headbar ul li {
+  display: inline-block;
+  padding: 0 1rem;
+}
+.headbar li:hover {
+  cursor: pointer;
+  color: #f85f73;
+}
+
+/* === REGISTRATION PAGE === */
+.register-page {
+  display: none;
+  padding-top: 2rem;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, #fbe8d3, #f85f73);
+  background-size: 400% 400%;
+  -webkit-animation: RegLogBG 30s ease infinite;
+  -moz-animation: RegLogBG 30s ease infinite;
+  -o-animation: RegLogBG 30s ease infinite;
+  animation: RegLogBG 30s ease infinite;
+}
+.register-btn {
+  font-size: 1.6rem;
+  padding: 0.5rem 1rem;
+}
+.register-form {
+  transform: translateY(20%);
+}
+.register-form fieldset {
+  border-radius: 1rem;
+  border: 1px solid #928a97;
+  background-color: #fff;
+}
+/* LOGIN PAGE */
+.login-page {
+  display: none;
+  padding-top: 2rem;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, #fbe8d3, #f85f73);
+  background-size: 400% 400%;
+  -webkit-animation: RegLogBG 30s ease infinite;
+  -moz-animation: RegLogBG 30s ease infinite;
+  -o-animation: RegLogBG 30s ease infinite;
+  animation: RegLogBG 30s ease infinite;
+}
+.login-btn {
+  font-size: 1.6rem;
+  padding: 0.5rem 1rem;
+}
+.login-form {
+  transform: translateY(20%);
+}
+.login-form fieldset {
+  border-radius: 1rem;
+  border: 1px solid #928a97;
+  background-color: #fff;
+}
+
+/* === REGISTRATION & LOGIN PAGE BACKGROUND ANIMATION === */
+@-webkit-keyframes RegLogBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes RegLogBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-o-keyframes RegLogBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes RegLogBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

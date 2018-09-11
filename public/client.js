@@ -355,18 +355,28 @@ function renderReport(result, year) {
 }
 
 $(document).ready(() => {
+  //====== LANDING PAGE HANDLERS ======
+  // handle when user clicks home
+  $("#home").on("click", () => {
+    $(".landing-page").show();
+    $(".register-page").hide();
+    $(".login-page").hide();
+  });
+
   // handle when user clicks register
   $("#register").on("click", () => {
     $(".landing-page").hide();
     $(".register-page").show();
     $(".login-page").hide();
   });
+
   //handle when user clicks login
   $("#login").on("click", () => {
     $(".landing-page").hide();
     $(".register-page").hide();
     $(".login-page").show();
   });
+
   // handle user registration
   $(".register-form").submit(e => {
     e.preventDefault();
@@ -407,6 +417,7 @@ $(document).ready(() => {
         .fail(error => console.log(error));
     }
   });
+
   // handle user login
   $(".login-form").submit(e => {
     e.preventDefault();
