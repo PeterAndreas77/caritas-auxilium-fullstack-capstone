@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-        crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <title>Caritas Auxilium</title>
@@ -27,10 +27,70 @@
         <main class="content">
 
             <section class="landing-page">
+                <section id="hero-page">
+                    <img class="hero-img" src="caritas_logo.png" alt="Caritas Auxilium Logo">
+                    <p>Humanitarian Crisis & Disaster Donation App</p>
+                    <a href="#feature-page" class="button">app features</a>
+                    <a href="#howto-page" class="button">how to use</a>
+                </section>
 
-                <img class="hero-img" src="caritas_logo.png" alt="Caritas Auxilium Logo">
-                <p>Humanitarian Crisis & Disaster Donation App</p>
-                <button class="start-btn">start</button>
+                <section id="feature-page">
+                    <h2 class="feature-title">App Features</h2>
+                    <div class="feature-img">
+                        <img src="https://via.placeholder.com/300x300" alt="feature-image">
+                    </div>
+                    <div class="feature-content">
+                        <p>First Feature. This App saves confirmation number of your donations, so you do not have to remember
+                            or having the risk of losing them in the laundry bin</p>
+                        <p>Second Feature. This App uses the latest and most recent crisis from Relief Web API, which is
+                            a public API for humanitarian crisis and disasters maintained by United Nations.</p>
+                        <p>Third Feature. This App uses a robust search algorithm so you can search by terms without modifying
+                            them. Of course, the algorithm is not a wizard, so make sure you have the right spelling.</p>
+                        <p>Fourth Feature. This App can make a report of your donations per year. Easy to print and You can
+                            use them to fill your tax deductions.</p>
+                    </div>
+                </section>
+
+                <section id="howto-page">
+                    <h2 class="howto-title">How To Use</h2>
+                    <div class="howto-img">
+                        <img src="https://via.placeholder.com/300x100" alt="howto-image">
+                    </div>
+                    <div class="howto-content">
+                        <ol>
+                            <li>User must register or login to use this app. You have no heart if you don't. There are crisis
+                                out there and people need help.</li>
+                            <li>To register, click the link on the landing page header that says <span class="fake-btn">register</span>.</li>
+                            <li>To Login, click the link on the landing page header that says <span class="fake-btn">login</span>.</li>
+                            <li>Once You register or logged if, you will be in the main user page. Menu is hidden at the
+                                top, while your main page is populated with the latest ten crisis from around the globe.</li>
+                            <li>Click the link on each card to read more of the crisis.</li>
+                            <li>You can then choose the crisis you deemed worthy. The <span class="fake-btn">donate</span>
+                                is located below the crisis.</li>
+                            <li>If you don't think people need help, you can cancel the crisis to go back to the latest crisis,
+                                using the <span class="fake-btn">cancel</span> button.</li>
+                            <li>You can also <span class="fake-btn">search</span> for any crisis using any search term. The
+                                result is limited to ten.</li>
+                            <li>Your chosen crisis are located on <span class="fake-btn">my crisis</span>.</li>
+                            <li>You can search for a specific crisis you have chosen by using the <span class="fake-btn">search</span>
+                                bar.</li>
+                            <li>To donate, click the <span class="fake-btn">donate</span> button on the crisis card.</li>
+                            <li>You are then prompted to fill out a form to keep a record of your donation. (Unfortunately,
+                                there is no charity API with a robust search features, so you have to do your own googling
+                                to find your own charity to donate to the chosen crisis)</li>
+                            <li>Again, if you don't want to donate to that crisis, you can click the <span class="fake-btn">cancel</span>
+                                button, conveniently located to the <span class="fake-btn">donate</span>button.</li>
+                            <li>You can look at a list of your donations when you click <span class="fake-btn">my donations</span>.</li>
+                            <li>You can search for a specific donation using the <span class="fake-btn">search</span> bar.</li>
+                            <li><span class="fake-btn">my account</span> contain the details of your account. You can change
+                                your first name, last name, and email address, nothing more.</li>
+                            <li>You can look at your donation activities throughout a certain year by clicking <span class="fake-btn">my
+                                    reports
+                                </span>. Once you are inside the page, you can <span class="fake-btn">pull</span>
+                                report from the server.</li>
+                        </ol>
+                    </div>
+                </section>
             </section>
 
             <section class="register-page">
@@ -209,7 +269,7 @@
                             <button class="pull-report-btn">pull</button>
                         </div>
                         <div class="my-report-container">
-                            <canvas id="myChart" width="400" height="400"></canvas>
+                            <canvas id="myChart"></canvas>
                         </div>
                     </section>
                 </div>
