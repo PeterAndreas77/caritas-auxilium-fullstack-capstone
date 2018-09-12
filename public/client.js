@@ -365,7 +365,16 @@ $(document).ready(() => {
   });
   // When User Clicks "BAR MENU"
   $("#head-menu").on("click", () => {
+    // Toggle the menu open
     $(".headbar").toggleClass("toggle");
+  });
+  // Close the Menu when User tap outside the Menu
+  $(document).mouseup(e => {
+    // If target of the click is ouside the header container and target is not descendants of that container
+    if (!$(".header").is(e.target) && $(".header").has(e.target).length === 0) {
+      // toggle the menu open
+      $(".headbar").toggleClass("toggle");
+    }
   });
   // handle when user clicks home
   $("#home").on("click", () => {
