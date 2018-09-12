@@ -1,14 +1,11 @@
 /* === GENERAL STYLING === */
-body {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 a {
   text-decoration: none;
-}
-form {
-  font-size: 1.5rem;
 }
 fieldset {
   margin: 0 auto;
@@ -39,13 +36,6 @@ fieldset {
   color: #fbe8d3;
   background-color: #283c63;
   box-shadow: 0 4px 10px #928a97;
-}
-
-.header h1 {
-  float: left;
-  font-size: 1.5rem;
-  margin-left: 2rem;
-  text-transform: uppercase;
 }
 
 .content {
@@ -151,7 +141,7 @@ button:hover {
 .landing-page {
   font-size: 1.5rem;
 }
-.main-logo {
+.logo {
   display: none;
 }
 /* Hero Page */
@@ -159,14 +149,17 @@ button:hover {
   height: 100vh;
 }
 .hero-img {
-  width: 50%;
+  width: 75%;
+}
+#hero-page p {
+  margin-bottom: 40px;
 }
 .button {
-  margin: 10px 20px;
+  margin: 0 20px;
   text-transform: uppercase;
   color: #fff;
   background-color: #f85f73;
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 0.5rem 0.25rem;
   border: 4px solid #f85f73;
   box-shadow: 0 2px 4px #928a97;
@@ -190,11 +183,12 @@ button:hover {
   text-align: center;
 }
 .feature-img {
-  margin: 0 auto;
-  width: 60%;
+  margin: 1rem auto;
+  width: 75%;
 }
 .feature-set,
 .set-title {
+  margin: 2rem 0;
   text-align: left;
   line-height: 1.4;
 }
@@ -203,14 +197,14 @@ button:hover {
 #howto-page {
   width: 96%;
   padding: 0 1rem;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 .howto-title {
   text-align: center;
 }
 .howto-img {
   margin: 1rem auto;
-  width: 60%;
+  width: 75%;
 }
 .howto-content {
   text-align: left;
@@ -230,20 +224,35 @@ button:hover {
 
 /* === NAVIGATION BAR === */
 /* Header NavBar */
+#head-menu {
+  padding: 0.5rem 0 0 2rem;
+}
+.menu-container:hover {
+  cursor: pointer;
+}
+.headbar.toggle {
+  transform: translateY(0);
+}
 .headbar {
+  width: 100%;
   font-size: 1.5rem;
-  text-align: right;
+  text-align: center;
+  transform: translateY(-300px);
+  transition: transform 1s ease-in;
 }
 .headbar ul {
   list-style: none;
 }
 .headbar ul li {
-  display: inline-block;
-  padding: 0 1rem;
+  display: block;
+  height: 4rem;
+  padding: 1rem 0;
+  background-color: #283c63;
 }
 .headbar li:hover {
   cursor: pointer;
   color: #f85f73;
+  background-color: #fbe8d3;
 }
 
 /* === REGISTRATION PAGE === */
@@ -263,15 +272,12 @@ button:hover {
   font-size: 1.6rem;
   padding: 0.5rem 1rem;
 }
-.register-form {
-  transform: translateY(20%);
-}
 .register-form fieldset {
   border-radius: 1rem;
   border: 1px solid #928a97;
   background-color: #fff;
 }
-/* LOGIN PAGE */
+/* === LOGIN PAGE === */
 .login-page {
   display: none;
   padding-top: 2rem;
@@ -287,9 +293,6 @@ button:hover {
 .login-btn {
   font-size: 1.6rem;
   padding: 0.5rem 1rem;
-}
-.login-form {
-  transform: translateY(20%);
 }
 .login-form fieldset {
   border-radius: 1rem;

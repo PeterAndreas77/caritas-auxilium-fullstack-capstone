@@ -356,6 +356,17 @@ function renderReport(result, year) {
 
 $(document).ready(() => {
   //====== LANDING PAGE HANDLERS ======
+  // Scroll Reveal on Certain Lines
+  ScrollReveal().reveal(".revealed", {
+    origin: "left",
+    delay: 200,
+    distance: "100%",
+    easing: "ease-in"
+  });
+  // When User Clicks "BAR MENU"
+  $("#head-menu").on("click", () => {
+    $(".headbar").toggleClass("toggle");
+  });
   // handle when user clicks home
   $("#home").on("click", () => {
     $(".landing-page").show();

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
     <link rel="stylesheet" href="main.css">
     <title>Caritas Auxilium</title>
 </head>
@@ -16,12 +17,13 @@
     <div class="container">
 
         <header class="header" role="banner">
-            <h1 class="main-logo">Caritas Auxilium</h1>
+            <span class="menu-container"><i class="fas fa-bars fa-3x" id="head-menu"></i></span>
+            <h1 class="logo">Caritas Auxilium</h1>
             <nav class="headbar">
                 <ul>
-                    <li id="home">Home <i class="fas fa-home"></i></li>
-                    <li id="register">Register <i class="fas fa-pencil-alt"></i></li>
-                    <li id="login">Login <i class="fas fa-sign-in-alt"></i></li>
+                    <li id="home"><i class="fas fa-home"></i> Home</li>
+                    <li id="register"><i class="fas fa-pencil-alt"></i> Register</li>
+                    <li id="login"><i class="fas fa-sign-in-alt"></i> Login</li>
                 </ul>
             </nav>
         </header>
@@ -31,35 +33,35 @@
                 <section id="hero-page">
                     <img class="hero-img" src="caritas_logo.png" alt="Caritas Auxilium Logo">
                     <p>Humanitarian Crisis & Disaster Donation App</p>
-                    <a href="#feature-page" class="button">app features</a>
+                    <a href="#feature-page" class="button">features</a>
                     <a href="#howto-page" class="button">how to use</a>
                 </section>
 
                 <section id="feature-page">
-                    <h2 class="feature-title">App Features</h2>
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1535402803947-a950d5f7ae4b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a1ee9193f083f265226c9d0e0b3ec8c9&auto=format&fit=crop&w=500&q=60"
-                            alt="feature-image">
-                        <p><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
+                    <h2 class="feature-title revealed">App Features</h2>
+                    <img class="feature-img revealed" src="https://images.unsplash.com/photo-1535402803947-a950d5f7ae4b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a1ee9193f083f265226c9d0e0b3ec8c9&auto=format&fit=crop&w=500&q=60"
+                        alt="feature-image">
+                    <p class="revealed"><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
+                    <div class="feature-set">
+                        <h3 class="set-title revealed">Convenience</h3>
+                        <p class="revealed">Caritas Auxilium save confirmation numbers of your donations and charity names,
+                            so you do not have to remember them or have the risk of losing them. Furthermore, this App make
+                            a report of your donations per year. Easy to print and You can use the report summary to fill
+                            into your tax deductions.
+                        </p>
                     </div>
                     <div class="feature-set">
-                        <h3 class="set-title">Convenience</h3>
-                        <p>Caritas Auxilium saves confirmation number of your donations and charity names, so you do not
-                            have to remember them or have the risk of losing them while doing laundry. Furthermore, this
-                            App make a report of your donations per year. Easy to print and You can use the report summary
-                            to fill into your tax deductions. Printer and Ink sold separately.</p>
+                        <h3 class="set-title revealed">Robust</h3>
+                        <p class="revealed">Caritas Auxilium uses the latest crisis taken straight from Relief Web API, which
+                            is a public API for humanitarian crisis and disasters maintained by United Nations. As a result,
+                            the app uses a robust search algorithm so you can search by terms without modifying them. Of
+                            course, the algorithm is not a wizard or a magician, so make sure you have the right spelling
+                            when you want to look for something.</p>
                     </div>
-                    <div class="feature-set">
-                        <h3 class="set-title">Robust</h3>
-                        <p>Caritas Auxilium uses the latest and most recent crisis from Relief Web API, which is a public
-                            API for humanitarian crisis and disasters maintained by United Nations. As a result, the app
-                            uses a robust search algorithm so you can search by terms without modifying them. Of course,
-                            the algorithm is not a wizard or a magician, so make sure you have the right spelling when you
-                            want to look for something.</p>
-                    </div>
-                    <div class="feature-set">
-                        <h3 class="set-title">Language</h3>
-                        <p>Caritas Auxilium means something entirely different in Latin. It's not just the name of an App.
+                    <div class="feature-set revealed">
+                        <h3 class="set-title revealed">Language</h3>
+                        <p class="revealed">Caritas Auxilium means something entirely different in Latin. It's not just the
+                            name of an App.
                             <em>Caritas</em> means the virtue of altruistic love, and <em>Auxilium</em> means to help or
                             to relief. So, combined they will be the altruistic love to help or relief people. This app is
                             like the duolingo for Latin.</p>
@@ -67,50 +69,53 @@
                 </section>
 
                 <section id="howto-page">
-                    <h2 class="howto-title">How To Use</h2>
-                    <div class="howto-img">
-                        <img src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc8be37d913994b3540169a890e2242d&auto=format&fit=crop&w=500&q=60"
-                            alt="howto-image">
-                        <p><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
-                    </div>
+                    <h2 class="howto-title revealed">How To Use</h2>
+                    <img class="howto-img revealed" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc8be37d913994b3540169a890e2242d&auto=format&fit=crop&w=500&q=60"
+                        alt="howto-image">
+                    <p class="revealed"><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
                     <div class="howto-content">
                         <ol>
-                            <li>You must register or login to use this app.</li>
-                            <li>Click <span class="fake-btn">register</span> on the header to be taken to the register page.
-                                You will be prompted to fill out a registration form.</li>
-                            <li>Click <span class="fake-btn">login</span> on the header to be taken to the login page. You
-                                will be asked to enter your username and password.</li>
-                            <li>Once You registered or logged in, you will be inside the main user page, which is populated
-                                with the latest ten crisis from around the globe.</li>
-                            <li>Click the <span class="fake-btn">link</span> on any crisis card to read more of the crisis
-                                that interest you.</li>
-                            <li>You can add any crisis that interest you to your crisis collection by clicking the <span
-                                    class="fake-btn">add</span> button.</li>
-                            <li>Clicking the <span class="fake-btn">cancel</span> button will return you to the recent crisis
-                                page.
+                            <li class="revealed">You must register or login to use this app.</li>
+                            <li class="revealed">Click <span class="fake-btn">register</span> on the header to be taken to
+                                the register page. You will be prompted to fill out a registration form.</li>
+                            <li class="revealed">Click <span class="fake-btn">login</span> on the header to be taken to the
+                                login page. You will be asked to enter your username and password.</li>
+                            <li class="revealed">Once You registered or logged in, you will be inside the main user page,
+                                which is populated with the latest ten crisis from around the globe.</li>
+                            <li class="revealed">Click the <span class="fake-btn">link</span> on any crisis card to read
+                                more of the crisis that interest you.</li>
+                            <li class="revealed">You can add any crisis that interest you to your crisis collection by clicking
+                                the <span class="fake-btn">add</span> button.</li>
+                            <li class="revealed">Clicking the <span class="fake-btn">cancel</span> button will return you
+                                to the recent crisis page.
                             </li>
-                            <li>You can also <span class="fake-btn">search</span> for any crisis using any search term. The
-                                result is limited to ten crisis.</li>
-                            <li>The crisis you added are located on <span class="fake-btn">my crisis</span>.</li>
-                            <li>You can search for a specific crisis you have chosen by using the <span class="fake-btn">search</span>
+                            <li class="revealed">You can also <span class="fake-btn">search</span> for any crisis using any
+                                search term. The result is limited to ten crisis.</li>
+                            <li class="revealed">The crisis you added are located on <span class="fake-btn">my crisis</span>.</li>
+                            <li class="revealed">You can search for a specific crisis you have chosen by using the <span
+                                    class="fake-btn">search</span>
                                 bar.</li>
-                            <li>Click the <span class="fake-btn">donate</span> button on the crisis card to donate to that
-                                crisis. You are then prompted to fill out a form to keep a record of your donation. (Unfortunately,
-                                there is no charity API with a robust search features, so you have to do your own googling
-                                to find your own charity to donate to the chosen crisis)</li>
-                            <li>Again, if you don't want to donate to that crisis, you can click the <span class="fake-btn">cancel</span>
+                            <li class="revealed">Click the <span class="fake-btn">donate</span> button on the crisis card
+                                to donate to that crisis. You are then prompted to fill out a form to keep a record of your
+                                donation. (Unfortunately, there is no charity API with a robust search features, so you have
+                                to do your own googling to find your own charity to donate to the chosen crisis)</li>
+                            <li class="revealed">Again, if you don't want to donate to that crisis, you can click the <span
+                                    class="fake-btn">cancel</span>
                                 button.</li>
-                            <li>Click <span class="fake-btn">delete</span> on the crisis card to delete a crisis from your
-                                collection.
+                            <li class="revealed">Click <span class="fake-btn">delete</span> on the crisis card to delete
+                                a crisis from your collection.
                             </li>
-                            <li>You can look at a list of your donations when you click <span class="fake-btn">my donations</span>.</li>
-                            <li>Click <span class="fake-btn">update</span> to update your chosen donation.</li>
-                            <li>Click <span class="fake-btn">delete</span> to delete your chosen donation.</li>
-                            <li>You can search for a specific donation using the <span class="fake-btn">search</span> bar.</li>
-                            <li><span class="fake-btn">my account</span> contain the details of your account. You can change
-                                your first name, last name, and email address, nothing more.</li>
-                            <li>You can look at your donation activities throughout a certain year by clicking <span class="fake-btn">my
-                                    reports
+                            <li class="revealed">You can look at a list of your donations when you click <span class="fake-btn">my
+                                    donations
+                                </span>.</li>
+                            <li class="revealed">Click <span class="fake-btn">update</span> to update your chosen donation.</li>
+                            <li class="revealed">Click <span class="fake-btn">delete</span> to delete your chosen donation.</li>
+                            <li class="revealed">You can search for a specific donation using the <span class="fake-btn">search</span>
+                                bar.</li>
+                            <li class="revealed"><span class="fake-btn">my account</span> contain the details of your account.
+                                You can change your first name, last name, and email address, nothing more.</li>
+                            <li class="revealed">You can look at your donation activities throughout a certain year by clicking
+                                <span class="fake-btn">my reports
                                 </span>. Once you are inside the page, you can <span class="fake-btn">pull</span>
                                 report from the server.</li>
                         </ol>
