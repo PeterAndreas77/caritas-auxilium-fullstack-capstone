@@ -173,6 +173,23 @@ app.get("/crisis-all/:user", (req, res) => {
     });
 });
 
+// handle crisis query term from client(crisis-QUERY)
+app.get("/crisis/search/:user/:term", (req, res) => {
+  Donation.find({
+    $and: [
+      { donor: req.params.user },
+      { title: { $regex: req.params.term, $options: "i" } }
+    ]
+  })
+    .where("donated")
+    .equals(false)
+    .then(items => res.json(items.map(item => item.crisis())))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Get All Crisis Error" });
+    });
+});
+
 // handle create crisis from client (crisis-POST)
 app.post("/crisis/create", (req, res) => {
   const requiredFields = ["title", "date", "details"];
@@ -249,6 +266,24 @@ app.put("/donation/update/:id", (req, res) => {
       res.status(500).json({ message: "Donation Update Error" });
     });
 });
+
+// handle donation query term from client(crisis-QUERY)
+app.get("/donation/search/:user/:term", (req, res) => {
+  Donation.find({
+    $and: [
+      { donor: req.params.user },
+      { title: { $regex: req.params.term, $options: "i" } }
+    ]
+  })
+    .where("donated")
+    .equals(true)
+    .then(items => res.json(items.map(item => item.donation())))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Get All Crisis Error" });
+    });
+});
+
 // handle donation deletion from client (donation-DELETE)
 app.delete("/donation/delete/:id", (req, res) => {
   Donation.findByIdAndRemove(req.params.id)

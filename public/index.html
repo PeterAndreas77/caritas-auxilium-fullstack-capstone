@@ -17,11 +17,10 @@
     <div class="container">
 
         <header class="header" role="banner">
-            <h1 class="logo">Welcome, <span class="my-username"></span> to Caritas Auxilium</h1>
             <nav class="outside-collapsible">
                 <input type="checkbox" id="outside-menu">
                 <label for="outside-menu" class="menu-label">Menu </label>
-                <div class="menu-content">
+                <div class="outside-menu-content">
                     <ul>
                         <li id="home"><i class="fas fa-home"></i> Home</li>
                         <li id="register"><i class="fas fa-pencil-alt"></i> Register</li>
@@ -29,10 +28,12 @@
                     </ul>
                 </div>
             </nav>
+
             <nav class="inside-collapsible">
                 <input type="checkbox" id="inside-menu">
                 <label for="inside-menu" class="menu-label">Menu </label>
-                <div class="menu-content">
+                <div class="inside-menu-content">
+
                     <ul>
                         <li id="new-crisis"><i class="fas fa-hands-helping"></i> Recent Crisis </li>
                         <li id="crisis"><i class="fas fa-donate"></i> My Crisis</li>
@@ -44,6 +45,7 @@
                 </div>
             </nav>
         </header>
+
         <main class="content">
 
             <section class="landing-page">
@@ -193,12 +195,13 @@
             </section>
 
             <section class="main-page">
+                <p class="welcome">Welcome, <span class="my-username"></span> to Caritas Auxilium</p>
 
                 <section class="recent-crisis">
                     <div class="form-group">
-                        <label for="searchCrisis">Search for crisis</label>
+                        <label for="searchCrisis">Search for Crisis</label>
                         <input type="text" id="searchCrisis" name="searchCrisis">
-                        <button class="search-btn">search</button>
+                        <button class="search-recent">search</button>
                     </div>
                     <div class="crisis-container">
                         <!-- RECENT CRISIS GOES HERE -->
@@ -207,9 +210,9 @@
 
                 <section class="my-crisis">
                     <div class="form-group">
-                        <label for="searchMyCrisis">Search my crisis</label>
+                        <label for="searchMyCrisis">Search My Crisis</label>
                         <input type="text" id="searchMyCrisis" name="searchMyCrisis">
-                        <button class="search-btn">search</button>
+                        <button class="search-my-crisis">search</button>
                     </div>
                     <div class="my-crisis-container">
                         <!-- USER CRISIS GOES HERE -->
@@ -243,9 +246,9 @@
 
                 <section class="my-donation">
                     <div class="form-group">
-                        <label for="searchMyDonation">Search my donation</label>
+                        <label for="searchMyDonation">Search my Donations</label>
                         <input type="text" id="searchMyDonation" name="searchMyDonation">
-                        <button class="search-btn">search</button>
+                        <button class="search-donation">search</button>
                     </div>
                     <div class="my-donation-container">
                         <!-- USER DONATION GOES HERE -->

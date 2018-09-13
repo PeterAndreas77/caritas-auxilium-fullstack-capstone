@@ -73,7 +73,7 @@ a {
 .my-donation-container {
   display: grid;
   grid-gap: 0.5rem;
-  grid-template-columns: minmax(100px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 /* === BUTTON STYLING === */
@@ -110,8 +110,9 @@ input {
 }
 
 /* === CARD STYLING === */
-.crisis-card {
-  padding: 5px;
+.crisis-card,
+.account-card {
+  padding: 10px 5px;
   border: 2px solid #283c63;
   box-shadow: 0 2px 4px #928a97;
   border-radius: 5px;
@@ -121,11 +122,11 @@ input {
 .landing-page {
   font-size: 1.5rem;
 }
-.logo {
+.welcome {
   display: none;
+  float: right;
   padding: 20px;
   font-size: 1rem;
-  float: right;
 }
 /* Hero Page */
 #hero-page {
@@ -232,14 +233,18 @@ nav ul li:hover {
 input:checked + .menu-label:after {
   content: "▼";
 }
-.menu-content {
+.outside-menu-content,
+.inside-menu-content {
   text-align: center;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-in;
 }
-input:checked ~ .menu-content {
+input:checked ~ .outside-menu-content {
   max-height: 300px;
+}
+input:checked ~ .inside-menu-content {
+  max-height: 600px;
 }
 input#outside-menu,
 input#inside-menu,
@@ -269,6 +274,7 @@ input#inside-menu,
   border: 1px solid #928a97;
   background-color: #fff;
 }
+
 /* === LOGIN PAGE === */
 .login-page {
   display: none;
@@ -337,6 +343,8 @@ input#inside-menu,
     background-position: 0% 50%;
   }
 }
+
+/* === MEDIA QUERIES === */
 @media screen and (min-width: 769px) {
   .hero-img,
   .feature-img,

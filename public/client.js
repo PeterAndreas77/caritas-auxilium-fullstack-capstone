@@ -42,7 +42,7 @@ function renderRecentCrisis(result) {
   for (let i in data) {
     recentCrisis += `<div class="crisis-card" crisis-id="${data[i].id}">
     <p>${data[i].fields.title}</p>
-    <p href="#" class="read-more fake-btn">read more</p>
+    <p href="#" class="read-more button">read more</p>
     </div>`;
   }
   // Render the Array into Crisis Container
@@ -137,6 +137,21 @@ function renderMyCrisis(data) {
   }
   // Insert the Array into the Container inside the DOM
   $(".my-crisis-container").html(myCrisis);
+}
+
+// Function to Search for My Crisis
+function searchMyCrisis(user, term) {
+  // Make an AJAX Call to ReliefWebAPI with Search Term in Request Body
+  $.ajax({
+    type: "GET",
+    url: `/crisis/search/${user}/${term}`,
+    dataType: "json",
+    contentType: "application/json"
+  })
+    // If Done, Render the Result
+    .done(result => renderMyCrisis(result))
+    // If Fail, Log the Error
+    .fail(err => console.log(err));
 }
 
 // Function to Delete a User's Crisis from the Database
@@ -239,6 +254,21 @@ function updateMyDonation(updateObject) {
     .fail(err => console.log(err));
 }
 
+// Function to Search for My Donations
+function searchMyDonation(user, term) {
+  // Make an AJAX Call to ReliefWebAPI with Search Term in Request Body
+  $.ajax({
+    type: "GET",
+    url: `/donation/search/${user}/${term}`,
+    dataType: "json",
+    contentType: "application/json"
+  })
+    // If Done, Render the Result
+    .done(result => renderMyDonation(result))
+    // If Fail, Log the Error
+    .fail(err => console.log(err));
+}
+
 // Function to Delete User's Donation
 function deleteMyDonation(id) {
   // Make a DELETE Request to the Database with the ID
@@ -300,12 +330,13 @@ function updateMyAccount(updateObject) {
 // Function to Render User's Account Details to the Page
 function renderMyAccount(userData) {
   // Initialize the String Template
-  const myAccountInfo = `<p>Avatar</p>
-  <img src="https://via.placeholder.com/150x150" class="user-avatar" alt="User Avatar">
+  const myAccountInfo = `
+  <div class="account-card">
   <p>First Name: ${userData.firstname}</p>
   <p>Last Name: ${userData.lastname}</p>
   <p>User Name: ${userData.username}</p>
   <p>Email: ${userData.email}</p>
+  </div>
   <button class="account-update-btn">update</button>`;
   //Insert User Info into the DOM
   $(".my-account-container").html(myAccountInfo);
@@ -358,28 +389,28 @@ $(document).ready(() => {
     easing: "ease-in"
   });
 
-  // handle when user clicks home
+  // When User Clicks "HOME"
   $("#home").on("click", () => {
     $(".landing-page").show();
     $(".register-page").hide();
     $(".login-page").hide();
   });
 
-  // handle when user clicks register
+  // When User Clicks "REGISTER"
   $("#register").on("click", () => {
     $(".landing-page").hide();
     $(".register-page").show();
     $(".login-page").hide();
   });
 
-  //handle when user clicks login
+  // When User Clicks "LOGIN"
   $("#login").on("click", () => {
     $(".landing-page").hide();
     $(".register-page").hide();
     $(".login-page").show();
   });
 
-  // handle user registration
+  // HANDLE REGISTRATION FORM SUBMISSION
   $(".register-form").submit(e => {
     e.preventDefault();
     const firstname = $("#registerFirstName").val();
@@ -418,19 +449,19 @@ $(document).ready(() => {
           //===WHEN USER LOGGED IN OR SUCCESFULLY REGISTER, WE CALL THIS FUNCTION
           populateRecentCrisis();
           $(".main-page").show();
-          $(".logo").css("display", "inline");
+          $(".welcome").show();
           $(".inside-collapsible").show();
         })
         .fail(error => console.log(error));
     }
   });
 
-  // handle user login
+  // HANDLE USER LOGIN
   $(".login-form").submit(e => {
     e.preventDefault();
     const username = $("#loginUserName").val();
     const password = $("#loginPassword").val();
-    console.log(password);
+
     if (username == "") alert("Please enter your username");
     else if (password == "") alert("Please enter your password");
     else {
@@ -451,7 +482,7 @@ $(document).ready(() => {
           //===WHEN USER LOGGED IN OR SUCCESFULLY REGISTER, WE CALL THIS FUNCTION
           populateRecentCrisis();
           $(".main-page").show();
-          $(".logo").css("display", "inline");
+          $(".welcome").show();
           $(".inside-collapsible").show();
         })
         .fail(error => {
@@ -475,7 +506,7 @@ $(document).ready(() => {
   });
 
   // When User SEARCH for CRISIS
-  $(".search-btn").on("click", () => {
+  $(".search-recent").on("click", () => {
     // Get the Value and Pass it to Search Function
     const query = $("#searchCrisis").val();
     searchRecentCrisis(query);
@@ -538,6 +569,14 @@ $(document).ready(() => {
     $(".donation-page").hide();
     const loggedInUser = localStorage.getItem("loggedInUser");
     getMyCrisis(loggedInUser);
+  });
+
+  // When User SEARCH for CRISIS
+  $(".search-my-crisis").on("click", () => {
+    // Get the Value and Pass it to Search Function
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    const query = $("#searchMyCrisis").val();
+    searchMyCrisis(loggedInUser, query);
   });
 
   // When Users Clicks "DONATE-BUTTON" on "MY CRISIS"
@@ -625,6 +664,14 @@ $(document).ready(() => {
     $(".my-donation").show();
     const loggedInUser = localStorage.getItem("loggedInUser");
     getMyDonation(loggedInUser);
+  });
+
+  // When User SEARCH for DONATIONS
+  $(".search-donation").on("click", () => {
+    // Get the Value and Pass it to Search Function
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    const query = $("#searchMyDonation").val();
+    searchMyDonation(loggedInUser, query);
   });
 
   // When User Clicks "UPDATE-BUTTON" button on "MY DONATIONS"
