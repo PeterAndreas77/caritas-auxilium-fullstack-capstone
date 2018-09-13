@@ -7,28 +7,52 @@
 a {
   text-decoration: none;
 }
-.recent-crisis,
-.my-crisis,
-.my-donation,
-.my-account,
-.my-report {
+
+/* === MAIN PAGE STYLE === */
+.main-page {
+  display: none;
+}
+
+/* === RECENT CRISIS PAGE STYLE === */
+.recent-crisis {
   margin: 1rem 0.5rem;
+}
+
+/* === MY CRISIS PAGE STYLE === */
+.my-crisis {
+  margin: 1rem 0.5rem;
+  display: none;
+}
+
+/* === MY DONATION PAGE STYLE === */
+.my-donation {
+  margin: 1rem 0.5rem;
+  display: none;
+}
+.donation-page,
+.donation-update-page {
+  display: none;
+}
+
+/* === MY ACCOUNT PAGE STYLE === */
+.my-account {
+  margin: 1rem 0.5rem;
+  display: none;
 }
 .my-account p {
   margin-bottom: 1rem;
 }
-.main-page,
-.my-crisis,
-.my-account,
-.my-donation,
-.my-report,
-.donation-page,
-.donation-update-page,
 .account-update-page {
   display: none;
 }
+
+/* === MY REPORT PAGE STYLE === */
+.my-report {
+  margin: 1rem 0.5rem;
+  display: none;
+}
 #myChart {
-  width: 90% !important;
+  width: 98% !important;
   height: 90%;
 }
 
@@ -128,13 +152,19 @@ input {
 }
 .welcome {
   display: none;
-  float: right;
   padding: 20px;
   font-size: 1rem;
 }
 /* Hero Page */
 #hero-page {
-  height: 100vh;
+  height: 96vh;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.85)
+    ),
+    url(https://images.unsplash.com/photo-1415304282915-d001ddefc7d7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42a14cb2320961b671d5b8b61f7f3522&auto=format&fit=crop&w=1350&q=80)
+      no-repeat center;
+  background-size: cover;
 }
 .hero-img {
   width: 75%;
@@ -149,7 +179,7 @@ input {
   background-color: #00adb5;
   font-size: 1rem;
   padding: 0.5rem 0.25rem;
-  border: 4px solid #00adb5;
+  border: 2px solid #00adb5;
   box-shadow: 0 2px 4px #393e46;
   border-radius: 10px;
   font-weight: bold;

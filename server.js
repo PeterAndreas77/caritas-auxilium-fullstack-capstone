@@ -238,7 +238,14 @@ app.put("/donation/create/:id", (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id))
     res.status(400).json({ message: "parameter and body IDs must match" });
   let newObject = {};
-  let newFields = ["charity", "amount", "confNum", "created", "donated"];
+  let newFields = [
+    "charity",
+    "amount",
+    "confNum",
+    "created",
+    "year",
+    "donated"
+  ];
   newFields.forEach(field => {
     if (field in req.body) newObject[field] = req.body[field];
   });
@@ -255,7 +262,7 @@ app.put("/donation/update/:id", (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id))
     res.status(400).json({ message: "parameter and body IDs must match" });
   let newObject = {};
-  let newFields = ["charity", "amount", "confNum", "created"];
+  let newFields = ["charity", "amount", "confNum"];
   newFields.forEach(field => {
     if (field in req.body) newObject[field] = req.body[field];
   });
@@ -295,19 +302,22 @@ app.delete("/donation/delete/:id", (req, res) => {
 });
 
 // DONATION REPORT ENDPOINT
-app.get("/report/:user", (req, res) => {
+app.get("/report/:user/:year", (req, res) => {
   const reportYear = parseInt(req.params.year);
   Donation.aggregate([
-    { $match: { donor: req.params.user, donated: true } },
+    { $match: { donor: req.params.user, donated: true, year: reportYear } },
     {
       $group: {
-        _id: { year: { $year: "$created" }, month: { $month: "$created" } },
+        _id: { month: { $month: "$created" } },
         total: { $sum: "$amount" },
         count: { $sum: 1 }
       }
     }
   ])
-    .then(item => res.json(item))
+    .then(item => {
+      res.json(item);
+      console.log(item);
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json({ message: "Report Generation Error" });

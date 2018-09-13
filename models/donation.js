@@ -12,6 +12,7 @@ const donationSchema = new mongoose.Schema({
   amount: { type: Number },
   confNum: { type: String },
   created: { type: Date, default: moment().format("L") },
+  year: { type: Number },
   donated: { type: Boolean, default: false }
 });
 

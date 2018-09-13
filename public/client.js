@@ -349,7 +349,7 @@ function pullReport(year) {
   // Make a GET Request with the Logged In UserName
   $.ajax({
     type: "GET",
-    url: `/report/${loggedInUser}`,
+    url: `/report/${loggedInUser}/${year}`,
     dataType: "json",
     contentType: "application/json"
   })
@@ -359,19 +359,45 @@ function pullReport(year) {
     .fail(err => console.log(err));
 }
 // Function to Render User Report to the Page
-function renderReport(result, year) {
-  const data = result[0];
+function renderReport(result) {
+  // Initialize an Empty Array to use as a template
+  let monthArray = {
+    Jan: 0,
+    Feb: 0,
+    Mar: 0,
+    Apr: 0,
+    May: 0,
+    Jun: 0,
+    Jul: 0,
+    Aug: 0,
+    Sep: 0,
+    Oct: 0,
+    Nov: 0,
+    Dec: 0
+  };
+  // Loop through every month keys in the array
+  for (let key in monthArray) {
+    // For every index in result
+    for (let i = 0; i < result.length; i++) {
+      // If the index month matches the key in month array
+      if (moment.monthsShort(result[i]._id.month - 1) == key) {
+        // Then the value of the key is the total value in result
+        monthArray[key] = result[i].total;
+      }
+    }
+  }
+  // Grab element to render the chart to
   let ctx = document.getElementById("myChart").getContext("2d");
   let myChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: [moment.monthsShort(data._id.month - 1)],
+      labels: Object.keys(monthArray),
       datasets: [
         {
-          label: " Amount of Donations per Month",
-          data: [data.total],
-          backgroundColor: ["rgba(232, 74, 95, 0.2)"],
-          borderColor: ["rgba(232, 74, 95, 1)"],
+          label: " Amount of Donations per Month (US$)",
+          data: Object.values(monthArray),
+          backgroundColor: ["rgba(57, 62, 70, 0.2)"],
+          borderColor: ["rgba(57, 62, 70, 1)"],
           borderWidth: 1
         }
       ]
@@ -413,18 +439,21 @@ $(document).ready(() => {
   // HANDLE REGISTRATION FORM SUBMISSION
   $(".register-form").submit(e => {
     e.preventDefault();
+    // Grab the values from the registration form
     const firstname = $("#registerFirstName").val();
     const lastname = $("#registerLastName").val();
     const username = $("#registerUserName").val();
     const email = $("#registerEmail").val();
     const password = $("#registerPassword").val();
     const confPassword = $("#confirmPassword").val();
+    // Check to see if all the values are entered
     if (firstname == "") alert("Please enter your first name");
     else if (lastname == "") alert("Please enter your last name");
     else if (username == "") alert("Please enter your user name");
     else if (email == "") alert("Please enter your email");
     else if (password == "") alert("Please enter your password");
     else if (confPassword != password) alert("Password do not match");
+    // If all values are entered, create a new user object
     else {
       const newUserObj = {
         firstname: firstname,
@@ -433,6 +462,7 @@ $(document).ready(() => {
         email: email,
         password: password
       };
+      // Make a post request and send the object to user endpoint
       $.ajax({
         type: "POST",
         url: "/users/register",
@@ -441,12 +471,14 @@ $(document).ready(() => {
         contentType: "application/json"
       })
         .done(result => {
+          // When done, hide outer pages
           $(".landing-page").hide();
           $(".outside-collapsible").hide();
           $(".register-page").hide();
+          // Set logged in username in local storage
           localStorage.setItem("loggedInUser", result.username);
           $(".my-username").html(result.username);
-          //===WHEN USER LOGGED IN OR SUCCESFULLY REGISTER, WE CALL THIS FUNCTION
+          // Populate the Main Page and Show Relevant Pages
           populateRecentCrisis();
           $(".main-page").show();
           $(".welcome").show();
@@ -459,13 +491,16 @@ $(document).ready(() => {
   // HANDLE USER LOGIN
   $(".login-form").submit(e => {
     e.preventDefault();
+    // Grab the values from Login Form
     const username = $("#loginUserName").val();
     const password = $("#loginPassword").val();
-
+    // Check to see if the values are entered
     if (username == "") alert("Please enter your username");
     else if (password == "") alert("Please enter your password");
     else {
+      // If all values are entered, make a login object
       const loginUserObj = { username: username, password: password };
+      // Send the login object by making a post request to user endpoint
       $.ajax({
         type: "POST",
         url: "/users/login",
@@ -474,12 +509,14 @@ $(document).ready(() => {
         contentType: "application/json"
       })
         .done(result => {
+          // When done, hide outer pages
           $(".landing-page").hide();
           $(".login-page").hide();
           $(".outside-collapsible").hide();
+          // Set logged in username in the local storage
           localStorage.setItem("loggedInUser", result.username);
           $(".my-username").html(result.username);
-          //===WHEN USER LOGGED IN OR SUCCESFULLY REGISTER, WE CALL THIS FUNCTION
+          // Populate the main page and show relevant pages
           populateRecentCrisis();
           $(".main-page").show();
           $(".welcome").show();
@@ -593,6 +630,10 @@ $(document).ready(() => {
     const id = $(e.currentTarget)
       .closest(".crisis-card")
       .attr("crisis-id");
+    // Reset the ID
+    $(e.currentTarget)
+      .closest(".crisis-card")
+      .attr("crisis-id", "");
     // Hide my-crisis-container
     $(".my-crisis-container").hide();
     // Show donation-page
@@ -625,6 +666,11 @@ $(document).ready(() => {
     const amount = $("#donationAmount").val();
     const confNum = $("#confirmationNumber").val();
     const created = moment().format("L");
+    const year = moment(created).format("YYYY");
+    // Reset the Form's Values
+    $("#charityName").val("");
+    $("#donationAmount").val("");
+    $("#confirmationNumber").val("");
     // Create New Donation Object to Pass on
     const newDonationObject = {
       id: id,
@@ -632,6 +678,7 @@ $(document).ready(() => {
       amount: amount,
       confNum: confNum,
       created: created,
+      year: year,
       donated: true
     };
     // Pass Donation Object to be Stored in the Database
@@ -707,14 +754,16 @@ $(document).ready(() => {
     const charity = $("#charityUpdate").val();
     const amount = $("#amountUpdate").val();
     const confNum = $("#confNumUpdate").val();
-    const created = moment().format("L");
+    // Reset the Values on the Form
+    $("#charityUpdate").val("");
+    $("#amountUpdate").val("");
+    $("#confNumUpdate").val("");
     // Create Update Object to Pass on
     const updateObject = {
       id: id,
       charity: charity,
       amount: amount,
-      confNum: confNum,
-      created: created
+      confNum: confNum
     };
     // Pass UpdateObject to Update the Donation
     updateMyDonation(updateObject);
@@ -763,6 +812,10 @@ $(document).ready(() => {
     const lastname = $("#updateLastName").val();
     const email = $("#updateEmail").val();
     const loggedInUser = localStorage.getItem("loggedInUser");
+    // Reset Account Update Form
+    $("#updateFirstName").val("");
+    $("#updateLastName").val("");
+    $("#updateEmail").val("");
     // Create Update Object to Pass on
     const updateObject = {
       username: loggedInUser,
@@ -813,7 +866,9 @@ $(document).ready(() => {
     localStorage.removeItem("loggedInUser");
     $(".register-form").trigger("reset");
     $(".login-form").trigger("reset");
+    $(".inside-collapsible").hide();
     $(".main-page").hide();
+    $(".outside-collapsible").show();
     $(".landing-page").show();
   });
 });
