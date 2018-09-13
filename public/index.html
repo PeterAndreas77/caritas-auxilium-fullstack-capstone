@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="caritas_favicon.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
@@ -17,6 +18,7 @@
     <div class="container">
 
         <header class="header" role="banner">
+            <!-- OUTSIDE NAVIGATION -->
             <nav class="outside-collapsible">
                 <input type="checkbox" id="outside-menu">
                 <label for="outside-menu" class="menu-label">Menu </label>
@@ -28,12 +30,11 @@
                     </ul>
                 </div>
             </nav>
-
+            <!-- INSIDE NAGIGATION -->
             <nav class="inside-collapsible">
                 <input type="checkbox" id="inside-menu">
                 <label for="inside-menu" class="menu-label">Menu </label>
                 <div class="inside-menu-content">
-
                     <ul>
                         <li id="new-crisis"><i class="fas fa-hands-helping"></i> Recent Crisis </li>
                         <li id="crisis"><i class="fas fa-donate"></i> My Crisis</li>
@@ -47,7 +48,7 @@
         </header>
 
         <main class="content">
-
+            <!-- LANDING PAGE -->
             <section class="landing-page">
                 <section id="hero-page">
                     <img class="hero-img" src="caritas_logo.png" alt="Caritas Auxilium Logo">
@@ -56,6 +57,7 @@
                     <a href="#howto-page" class="button">how to use</a>
                 </section>
 
+                <!-- FEATURE PAGE -->
                 <section id="feature-page">
                     <h2 class="feature-title revealed">App Features</h2>
                     <img class="feature-img revealed" src="https://images.unsplash.com/photo-1535402803947-a950d5f7ae4b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a1ee9193f083f265226c9d0e0b3ec8c9&auto=format&fit=crop&w=500&q=60"
@@ -63,30 +65,30 @@
                     <p class="revealed"><em>image from <a href="https://unsplash.com" target="_blank">unsplash</a></em></p>
                     <div class="feature-set">
                         <h3 class="set-title revealed">Convenience</h3>
-                        <p class="revealed">Caritas Auxilium save confirmation numbers of your donations and charity names,
-                            so you do not have to remember them or have the risk of losing them. Furthermore, this App make
-                            a report of your donations per year. Easy to print and You can use the report summary to fill
-                            into your tax deductions.
+                        <p class="revealed">Caritas Auxilium saves confirmation numbers of your donations and charity
+                            names, so you do not have to remember them or have the risk of losing them. Furthermore,
+                            this App makes a report of your donations per year. Easy to print and you can use the
+                            report summary to fill into your tax deductions.
                         </p>
                     </div>
                     <div class="feature-set">
                         <h3 class="set-title revealed">Robust</h3>
-                        <p class="revealed">Caritas Auxilium uses the latest crisis taken straight from Relief Web API, which
-                            is a public API for humanitarian crisis and disasters maintained by United Nations. As a result,
-                            the app uses a robust search algorithm so you can search by terms without modifying them. Of
-                            course, the algorithm is not a wizard or a magician, so make sure you have the right spelling
-                            when you want to look for something.</p>
+                        <p class="revealed">Caritas Auxilium uses the latest crisis reports taken straight from Relief
+                            Web API, which is a public API for humanitarian crisis and disasters maintained by United
+                            Nations. As a result, the App uses a robust search algorithm so you can search by terms
+                            without modifying them. Of course, the algorithm is not a wizard or a magician, so make
+                            sure you have the right spelling when you want to look for something.</p>
                     </div>
                     <div class="feature-set revealed">
                         <h3 class="set-title revealed">Language</h3>
-                        <p class="revealed">Caritas Auxilium means something entirely different in Latin. It's not just the
-                            name of an App.
-                            <em>Caritas</em> means the virtue of altruistic love, and <em>Auxilium</em> means to help or
-                            to relief. So, combined they will be the altruistic love to help or relief people. This app is
-                            like the duolingo for Latin.</p>
+                        <p class="revealed">Caritas Auxilium means something entirely different in Latin. It's not just
+                            the name of an App. Caritas means "the virtue of altruistic love", and Auxilium means "to
+                            help or to relief". So, combined they meaning will be the altruistic love to help or relief
+                            people.</p>
                     </div>
                 </section>
 
+                <!-- FEATURE PAGE -->
                 <section id="howto-page">
                     <h2 class="howto-title revealed">How To Use</h2>
                     <img class="howto-img revealed" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc8be37d913994b3540169a890e2242d&auto=format&fit=crop&w=500&q=60"
@@ -95,45 +97,60 @@
                     <div class="howto-content">
                         <ol>
                             <li class="revealed">You must register or login to use this app.</li>
-                            <li class="revealed">Click <span class="fake-btn">register</span> on the header to be taken to
+                            <li class="revealed">Click <span class="fake-btn">register</span> on the header to be taken
+                                to
                                 the register page. You will be prompted to fill out a registration form.</li>
-                            <li class="revealed">Click <span class="fake-btn">login</span> on the header to be taken to the
+                            <li class="revealed">Click <span class="fake-btn">login</span> on the header to be taken to
+                                the
                                 login page. You will be asked to enter your username and password.</li>
-                            <li class="revealed">Once You registered or logged in, you will be inside the main user page,
+                            <li class="revealed">Once You registered or logged in, you will be inside the main user
+                                page,
                                 which is populated with the latest ten crisis from around the globe.</li>
-                            <li class="revealed">Click the <span class="fake-btn">link</span> on any crisis card to read
+                            <li class="revealed">Click the <span class="fake-btn">link</span> on any crisis card to
+                                read
                                 more of the crisis that interest you.</li>
-                            <li class="revealed">You can add any crisis that interest you to your crisis collection by clicking
+                            <li class="revealed">You can add any crisis that interest you to your crisis collection by
+                                clicking
                                 the <span class="fake-btn">add</span> button.</li>
-                            <li class="revealed">Clicking the <span class="fake-btn">cancel</span> button will return you
+                            <li class="revealed">Clicking the <span class="fake-btn">cancel</span> button will return
+                                you
                                 to the recent crisis page.
                             </li>
-                            <li class="revealed">You can also <span class="fake-btn">search</span> for any crisis using any
+                            <li class="revealed">You can also <span class="fake-btn">search</span> for any crisis using
+                                any
                                 search term. The result is limited to ten crisis.</li>
                             <li class="revealed">The crisis you added are located on <span class="fake-btn">my crisis</span>.</li>
-                            <li class="revealed">You can search for a specific crisis you have chosen by using the <span
-                                    class="fake-btn">search</span>
+                            <li class="revealed">You can search for a specific crisis you have chosen by using the
+                                <span class="fake-btn">search</span>
                                 bar.</li>
-                            <li class="revealed">Click the <span class="fake-btn">donate</span> button on the crisis card
-                                to donate to that crisis. You are then prompted to fill out a form to keep a record of your
-                                donation. (Unfortunately, there is no charity API with a robust search features, so you have
+                            <li class="revealed">Click the <span class="fake-btn">donate</span> button on the crisis
+                                card
+                                to donate to that crisis. You are then prompted to fill out a form to keep a record of
+                                your
+                                donation. (Unfortunately, there is no charity API with a robust search features, so you
+                                have
                                 to do your own googling to find your own charity to donate to the chosen crisis)</li>
-                            <li class="revealed">Again, if you don't want to donate to that crisis, you can click the <span
-                                    class="fake-btn">cancel</span>
+                            <li class="revealed">Again, if you don't want to donate to that crisis, you can click the
+                                <span class="fake-btn">cancel</span>
                                 button.</li>
-                            <li class="revealed">Click <span class="fake-btn">delete</span> on the crisis card to delete
+                            <li class="revealed">Click <span class="fake-btn">delete</span> on the crisis card to
+                                delete
                                 a crisis from your collection.
                             </li>
                             <li class="revealed">You can look at a list of your donations when you click <span class="fake-btn">my
                                     donations
                                 </span>.</li>
-                            <li class="revealed">Click <span class="fake-btn">update</span> to update your chosen donation.</li>
-                            <li class="revealed">Click <span class="fake-btn">delete</span> to delete your chosen donation.</li>
+                            <li class="revealed">Click <span class="fake-btn">update</span> to update your chosen
+                                donation.</li>
+                            <li class="revealed">Click <span class="fake-btn">delete</span> to delete your chosen
+                                donation.</li>
                             <li class="revealed">You can search for a specific donation using the <span class="fake-btn">search</span>
                                 bar.</li>
-                            <li class="revealed"><span class="fake-btn">my account</span> contain the details of your account.
+                            <li class="revealed"><span class="fake-btn">my account</span> contain the details of your
+                                account.
                                 You can change your first name, last name, and email address, nothing more.</li>
-                            <li class="revealed">You can look at your donation activities throughout a certain year by clicking
+                            <li class="revealed">You can look at your donation activities throughout a certain year by
+                                clicking
                                 <span class="fake-btn">my reports
                                 </span>. Once you are inside the page, you can <span class="fake-btn">pull</span>
                                 report from the server.</li>
@@ -142,6 +159,7 @@
                 </section>
             </section>
 
+            <!-- REGISTRATION PAGE -->
             <section class="register-page">
                 <form class="register-form">
                     <fieldset>
@@ -175,6 +193,7 @@
                 </form>
             </section>
 
+            <!-- LOGIN PAGE -->
             <section class="login-page">
                 <form class="login-form">
                     <fieldset>
@@ -194,9 +213,11 @@
                 </form>
             </section>
 
+            <!-- MAIN PAGE -->
             <section class="main-page">
                 <p class="welcome">Welcome, <span class="my-username"></span> to Caritas Auxilium</p>
 
+                <!-- RECENT CRISIS PAGE -->
                 <section class="recent-crisis">
                     <div class="form-group">
                         <label for="searchCrisis">Search for Crisis</label>
@@ -208,6 +229,7 @@
                     </div>
                 </section>
 
+                <!-- MY CRISIS PAGE -->
                 <section class="my-crisis">
                     <div class="form-group">
                         <label for="searchMyCrisis">Search My Crisis</label>
@@ -223,8 +245,10 @@
                                 <legend>Donate your $$$</legend>
                                 <h4 id="crisisTitleDP"></h4>
                                 <p id="crisisDateDP"></p>
-                                <p id="IDkeeper">Unfortunately, there are no API for charity available. So, a good old fashioned
-                                    googling is the way to donate. When you are done, go back here and keep record of it.</p>
+                                <p id="IDkeeper">Unfortunately, there are no API for charity available. So, a good old
+                                    fashioned
+                                    googling is the way to donate. When you are done, go back here and keep record of
+                                    it.</p>
                                 <div class="form-group">
                                     <label for="charityName">Charity Name</label>
                                     <input type="text" id="charityName" name="charityName">
@@ -244,6 +268,7 @@
                     </div>
                 </section>
 
+                <!-- MY DONATION PAGE -->
                 <section class="my-donation">
                     <div class="form-group">
                         <label for="searchMyDonation">Search my Donations</label>
@@ -276,6 +301,7 @@
                     </div>
                 </section>
 
+                <!-- MY ACCOUNT PAGE -->
                 <section class="my-account">
                     <div class="my-account-container">
                         <!-- USER ACCOUNT DETAILS GOES HERE -->
@@ -303,6 +329,7 @@
                     </div>
                 </section>
 
+                <!-- MY REPORT PAGE -->
                 <section class="my-report">
                     <div class="form-group">
                         <label for="reportYear">Pull Report by Year</label>
@@ -322,6 +349,7 @@
         </footer>
 
     </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
