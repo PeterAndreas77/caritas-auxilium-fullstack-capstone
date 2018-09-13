@@ -42,7 +42,7 @@ function renderRecentCrisis(result) {
   for (let i in data) {
     recentCrisis += `<div class="crisis-card" crisis-id="${data[i].id}">
     <p>${data[i].fields.title}</p>
-    <a href="#" class="read-more">${data[i].href}</a>
+    <p href="#" class="read-more fake-btn">read more</p>
     </div>`;
   }
   // Render the Array into Crisis Container
@@ -97,8 +97,8 @@ function createCrisis(newObject) {
     .done(() => {
       // Hide recent-crisis
       $(".recent-crisis").hide();
-      //changethis
-      getMyCrisis("jojo");
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      getMyCrisis(loggedInUser);
       // Show my-crisis
       $(".my-crisis").show();
     })
@@ -151,9 +151,8 @@ function deleteMyCrisis(id) {
     // If Request is Successful
     .done(() => {
       // Rerender the Page
-      //changethis
-      const username = "jojo";
-      getMyCrisis(username);
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      getMyCrisis(loggedInUser);
     })
     // If the Request Failed, Log the Error
     .fail(err => console.log(err));
@@ -207,8 +206,7 @@ function createMyDonation(newObject) {
     .done(() => {
       // Hide my-crisis
       $(".my-crisis").hide();
-      //changethis
-      let loggedInUser = "jojo";
+      const loggedInUser = localStorage.getItem("loggedInUser");
       // Render User Donations
       getMyDonation(loggedInUser);
       // Show my-donations
@@ -232,8 +230,7 @@ function updateMyDonation(updateObject) {
     .done(() => {
       // Hide donation-update-page
       $(".donation-update-page").hide();
-      //changethis
-      let loggedInUser = "jojo";
+      const loggedInUser = localStorage.getItem("loggedInUser");
       // Rerender User's Donations
       getMyDonation(loggedInUser);
       // Show my-donation-container
@@ -253,8 +250,7 @@ function deleteMyDonation(id) {
   })
     // If Request is Successful
     .done(() => {
-      //changethis
-      let loggedInUser = "jojo";
+      const loggedInUser = localStorage.getItem("loggedInUser");
       // Rerender User's Donations
       getMyDonation(loggedInUser);
     })
@@ -264,11 +260,11 @@ function deleteMyDonation(id) {
 
 //====== MY ACCOUNT FUNCTIONS ======
 // Function to Get User's Account Details from the Database
-function getMyAccount(myName) {
+function getMyAccount(loggedInUser) {
   // Make a GET Request with the Logged In UserName
   $.ajax({
     type: "GET",
-    url: `/user/${myName}`,
+    url: `/user/${loggedInUser}`,
     dataType: "json",
     contentType: "application/json"
   })
@@ -291,8 +287,7 @@ function updateMyAccount(updateObject) {
     .done(() => {
       // Hide account-update-page
       $(".account-update-page").hide();
-      //changethis
-      let loggedInUser = "jojo";
+      const loggedInUser = localStorage.getItem("loggedInUser");
       // Rerender User's Account Info
       getMyAccount(loggedInUser);
       // Show my-account-container
@@ -319,8 +314,7 @@ function renderMyAccount(userData) {
 //====== MY REPORT FUNCTIONS ======
 // Function to Pull User Report from the Database
 function pullReport(year) {
-  //changethis
-  let loggedInUser = "jojo";
+  const loggedInUser = localStorage.getItem("loggedInUser");
   // Make a GET Request with the Logged In UserName
   $.ajax({
     type: "GET",
@@ -363,19 +357,7 @@ $(document).ready(() => {
     distance: "100%",
     easing: "ease-in"
   });
-  // When User Clicks "BAR MENU"
-  $("#head-menu").on("click", () => {
-    // Toggle the menu open
-    $(".headbar").toggleClass("toggle");
-  });
-  // Close the Menu when User tap outside the Menu
-  $(document).mouseup(e => {
-    // If target of the click is ouside the header container and target is not descendants of that container
-    if (!$(".header").is(e.target) && $(".header").has(e.target).length === 0) {
-      // toggle the menu open
-      $(".headbar").toggleClass("toggle");
-    }
-  });
+
   // handle when user clicks home
   $("#home").on("click", () => {
     $(".landing-page").show();
@@ -428,11 +410,16 @@ $(document).ready(() => {
         contentType: "application/json"
       })
         .done(result => {
+          $(".landing-page").hide();
+          $(".outside-collapsible").hide();
           $(".register-page").hide();
-          $(".headbar").hide();
+          localStorage.setItem("loggedInUser", result.username);
+          $(".my-username").html(result.username);
           //===WHEN USER LOGGED IN OR SUCCESFULLY REGISTER, WE CALL THIS FUNCTION
           populateRecentCrisis();
           $(".main-page").show();
+          $(".logo").css("display", "inline");
+          $(".inside-collapsible").show();
         })
         .fail(error => console.log(error));
     }
@@ -456,11 +443,16 @@ $(document).ready(() => {
         contentType: "application/json"
       })
         .done(result => {
+          $(".landing-page").hide();
           $(".login-page").hide();
-          $(".headbar").hide();
+          $(".outside-collapsible").hide();
+          localStorage.setItem("loggedInUser", result.username);
+          $(".my-username").html(result.username);
           //===WHEN USER LOGGED IN OR SUCCESFULLY REGISTER, WE CALL THIS FUNCTION
           populateRecentCrisis();
           $(".main-page").show();
+          $(".logo").css("display", "inline");
+          $(".inside-collapsible").show();
         })
         .fail(error => {
           console.log(error);
@@ -514,12 +506,13 @@ $(document).ready(() => {
       .attr("crisis-body");
     // Store Date in Formatted Forms
     const formatDate = moment(date).format("LL");
+    const loggedInUser = localStorage.getItem("loggedInUser");
     // Create a New Object to Pass on
     const newCrisisObject = {
       title: title,
       date: formatDate,
       details: details,
-      donor: "jojo"
+      donor: loggedInUser
     };
     // Pass the Object as a New Crisis
     createCrisis(newCrisisObject);
@@ -543,8 +536,7 @@ $(document).ready(() => {
     $(".my-crisis").show();
     $(".my-crisis-container").show();
     $(".donation-page").hide();
-    //changethis
-    let loggedInUser = "jojo";
+    const loggedInUser = localStorage.getItem("loggedInUser");
     getMyCrisis(loggedInUser);
   });
 
@@ -611,6 +603,7 @@ $(document).ready(() => {
   $(".my-crisis").on("click", ".cancel-donation-btn", e => {
     // Prevent Bubbling
     e.preventDefault();
+    // Reset the Values on the Form
     $("#charityName").val("");
     $("#donationAmount").val("");
     $("#confirmationNumber").val("");
@@ -630,8 +623,7 @@ $(document).ready(() => {
     $(".my-report").hide();
     // Show and Render User's Donations
     $(".my-donation").show();
-    //changethis
-    let loggedInUser = "jojo";
+    const loggedInUser = localStorage.getItem("loggedInUser");
     getMyDonation(loggedInUser);
   });
 
@@ -685,6 +677,10 @@ $(document).ready(() => {
   $(".my-donation").on("click", ".cancel-update-btn", e => {
     // Prevent Bubbling
     e.preventDefault();
+    // Reset the Values on the Form
+    $("#charityUpdate").val("");
+    $("#amountUpdate").val("");
+    $("#confNumUpdate").val("");
     // Show my-donation-container
     $(".my-donation-container").show();
     // Hide donation-update-page
@@ -701,8 +697,7 @@ $(document).ready(() => {
     $(".my-report").hide();
     // Show and Render User's Account Info
     $(".my-account").show();
-    //changethis
-    let loggedInUser = "jojo";
+    const loggedInUser = localStorage.getItem("loggedInUser");
     getMyAccount(loggedInUser);
   });
 
@@ -720,8 +715,7 @@ $(document).ready(() => {
     const firstname = $("#updateFirstName").val();
     const lastname = $("#updateLastName").val();
     const email = $("#updateEmail").val();
-    //changethis
-    let loggedInUser = "jojo";
+    const loggedInUser = localStorage.getItem("loggedInUser");
     // Create Update Object to Pass on
     const updateObject = {
       username: loggedInUser,
@@ -737,7 +731,13 @@ $(document).ready(() => {
   // When User Clicks "CANCEL BUTTON" on "ACCOUNT UPDATE FORM"
   $(".my-account").on("click", ".cancel-account-update", e => {
     e.preventDefault();
+    // Reset Account Update Form
+    $("#updateFirstName").val("");
+    $("#updateLastName").val("");
+    $("#updateEmail").val("");
+    // Show account-update-page
     $(".account-update-page").hide();
+    // Hide my-account-container
     $(".my-account-container").show();
   });
 
@@ -751,8 +751,7 @@ $(document).ready(() => {
     $(".my-account").hide();
     // Show and Render User's Report
     $(".my-report").show();
-    //changethis
-    let loggedInUser = "jojo";
+    const loggedInUser = localStorage.getItem("loggedInUser");
     getMyAccount(loggedInUser);
   });
   // When User Clicks "SEARCH BUTTON" on "MY REPORT"
@@ -760,5 +759,14 @@ $(document).ready(() => {
     // Get the Value and Pass it to Pull Report Function
     const reportYear = parseInt($("#reportYear").val(), 10);
     pullReport(reportYear);
+  });
+
+  //====== LOGOUT HANDLER ======
+  $("#logout").on("click", () => {
+    localStorage.removeItem("loggedInUser");
+    $(".register-form").trigger("reset");
+    $(".login-form").trigger("reset");
+    $(".main-page").hide();
+    $(".landing-page").show();
   });
 });

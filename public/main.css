@@ -7,18 +7,32 @@
 a {
   text-decoration: none;
 }
-fieldset {
-  margin: 0 auto;
-  padding: 10px;
-  width: 70%;
+.recent-crisis,
+.my-crisis,
+.my-donation,
+.my-account,
+.my-report {
+  margin: 1rem 0.5rem;
 }
-.form-group {
-  margin: 0.8rem 0;
+.my-account p {
+  margin-bottom: 1rem;
 }
-input {
-  height: 1.6rem;
+.main-page,
+.my-crisis,
+.my-account,
+.my-donation,
+.my-report,
+.donation-page,
+.donation-update-page,
+.account-update-page {
+  display: none;
+}
+#myChart {
+  width: 90% !important;
+  height: 90%;
 }
 
+/* === CONTAINER STYLING === */
 .container {
   max-width: 100%;
   height: 100vh;
@@ -31,7 +45,6 @@ input {
     "content"
     "footer";
 }
-
 .header {
   grid-area: header;
   width: 100%;
@@ -41,14 +54,12 @@ input {
   background-color: #283c63;
   box-shadow: 0 4px 10px #928a97;
 }
-
 .content {
   grid-area: content;
   text-align: center;
   font-family: "Roboto";
   color: #283c63;
 }
-
 .footer {
   grid-area: footer;
   padding: 0.25rem 0;
@@ -57,7 +68,15 @@ input {
   background-color: #283c63;
   box-shadow: 0 -2px 5px #928a97;
 }
+.crisis-container,
+.my-crisis-container,
+.my-donation-container {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: minmax(100px, 1fr);
+}
 
+/* === BUTTON STYLING === */
 button {
   margin: 10px 20px;
   text-transform: uppercase;
@@ -70,7 +89,6 @@ button {
   border-radius: 5px;
   font-weight: bold;
 }
-
 button:hover {
   cursor: pointer;
   color: #f85f73;
@@ -78,67 +96,25 @@ button:hover {
   box-shadow: none;
 }
 
-.main-page {
-  display: none;
-  grid-template-columns: 150px 1fr;
-  grid-template-areas: "sidebar main" ".. main";
+/* === FORM STYLING === */
+fieldset {
+  margin: 0 auto;
+  padding: 10px;
+  width: 70%;
 }
-.sidebar {
-  grid-area: sidebar;
+.form-group {
+  margin: 0.8rem 0;
 }
-.sidebar li {
-  display: inline-block;
-  padding: 0.5rem 0;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  font-size: 1.2rem;
-  width: 100%;
-}
-.sidebar li:hover {
-  cursor: pointer;
-  color: #f85f73;
-}
-.main-container {
-  grid-area: main;
+input {
+  height: 1.6rem;
 }
 
-.recent-crisis,
-.my-crisis,
-.my-donation,
-.my-account,
-.my-report {
-  margin: 1rem 0.5rem;
-}
-.my-account p {
-  margin-bottom: 1rem;
-}
-
-.crisis-container,
-.my-crisis-container,
-.my-donation-container {
-  display: grid;
-  grid-gap: 0.5rem;
-  grid-template-columns: minmax(100px, 1fr);
-}
+/* === CARD STYLING === */
 .crisis-card {
   padding: 5px;
   border: 2px solid #283c63;
   box-shadow: 0 2px 4px #928a97;
   border-radius: 5px;
-}
-.my-crisis,
-.my-account,
-.my-donation,
-.my-report,
-.donation-page,
-.donation-update-page,
-.account-update-page {
-  display: none;
-}
-
-#myChart {
-  width: 90% !important;
-  height: 90%;
 }
 
 /* === LANDING PAGE STYLES === */
@@ -147,6 +123,9 @@ button:hover {
 }
 .logo {
   display: none;
+  padding: 20px;
+  font-size: 1rem;
+  float: right;
 }
 /* Hero Page */
 #hero-page {
@@ -227,36 +206,45 @@ button:hover {
 }
 
 /* === NAVIGATION BAR === */
-/* Header NavBar */
-#head-menu {
-  padding: 0.5rem 0 0 2rem;
+nav ul {
+  list-style-type: none;
 }
-.menu-container:hover {
-  cursor: pointer;
-}
-.headbar.toggle {
-  transform: translateY(0);
-}
-.headbar {
-  width: 100%;
-  font-size: 1.5rem;
-  text-align: center;
-  transform: translateY(-300px);
-  transition: transform 1s ease-in;
-}
-.headbar ul {
-  list-style: none;
-}
-.headbar ul li {
+nav ul li {
   display: block;
-  height: 4rem;
-  padding: 1rem 0;
   background-color: #283c63;
+  width: 100%;
+  padding: 20px 0;
 }
-.headbar li:hover {
+nav ul li:hover {
   cursor: pointer;
-  color: #f85f73;
   background-color: #fbe8d3;
+  color: #283c63;
+}
+.menu-label {
+  font-size: 2rem;
+  display: block;
+  cursor: pointer;
+  padding: 10px 0 0 50px;
+}
+.menu-label:after {
+  content: "►";
+}
+input:checked + .menu-label:after {
+  content: "▼";
+}
+.menu-content {
+  text-align: center;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in;
+}
+input:checked ~ .menu-content {
+  max-height: 300px;
+}
+input#outside-menu,
+input#inside-menu,
+.inside-collapsible {
+  display: none;
 }
 
 /* === REGISTRATION PAGE === */
@@ -347,5 +335,19 @@ button:hover {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+@media screen and (min-width: 769px) {
+  .hero-img,
+  .feature-img,
+  .howto-img {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .hero-img,
+  .feature-img,
+  .howto-img {
+    width: 25%;
   }
 }

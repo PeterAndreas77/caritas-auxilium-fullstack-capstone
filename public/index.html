@@ -17,14 +17,31 @@
     <div class="container">
 
         <header class="header" role="banner">
-            <span class="menu-container"><i class="fas fa-bars fa-3x" id="head-menu"></i></span>
-            <h1 class="logo">Caritas Auxilium</h1>
-            <nav class="headbar">
-                <ul>
-                    <li id="home"><i class="fas fa-home"></i> Home</li>
-                    <li id="register"><i class="fas fa-pencil-alt"></i> Register</li>
-                    <li id="login"><i class="fas fa-sign-in-alt"></i> Login</li>
-                </ul>
+            <h1 class="logo">Welcome, <span class="my-username"></span> to Caritas Auxilium</h1>
+            <nav class="outside-collapsible">
+                <input type="checkbox" id="outside-menu">
+                <label for="outside-menu" class="menu-label">Menu </label>
+                <div class="menu-content">
+                    <ul>
+                        <li id="home"><i class="fas fa-home"></i> Home</li>
+                        <li id="register"><i class="fas fa-pencil-alt"></i> Register</li>
+                        <li id="login"><i class="fas fa-sign-in-alt"></i> Login</li>
+                    </ul>
+                </div>
+            </nav>
+            <nav class="inside-collapsible">
+                <input type="checkbox" id="inside-menu">
+                <label for="inside-menu" class="menu-label">Menu </label>
+                <div class="menu-content">
+                    <ul>
+                        <li id="new-crisis"><i class="fas fa-hands-helping"></i> Recent Crisis </li>
+                        <li id="crisis"><i class="fas fa-donate"></i> My Crisis</li>
+                        <li id="donations"><i class="fas fa-file-invoice-dollar"></i> My Donations</li>
+                        <li id="account"><i class="fas fa-cogs"></i> My Account</li>
+                        <li id="reports"><i class="fas fa-chart-bar"></i> My Reports</li>
+                        <li id="logout"><i class="fas fa-sign-out-alt"></i> Logout</li>
+                    </ul>
+                </div>
             </nav>
         </header>
         <main class="content">
@@ -126,7 +143,7 @@
             <section class="register-page">
                 <form class="register-form">
                     <fieldset>
-                        <h2>Please fill out this form</h2>
+                        <h2>Fill out this form to register</h2>
                         <div class="form-group">
                             <label for="registerFirstName">First Name</label>
                             <input type="text" id="registerFirstName" name="registerFirstName">
@@ -159,150 +176,141 @@
             <section class="login-page">
                 <form class="login-form">
                     <fieldset>
-                        <h2>Please enter your username and password</h2>
+                        <h2>Enter your username and password</h2>
                         <div class="form-group">
                             <label for="loginUserName">User Name</label>
-                            <input type="text" id="loginUserName" name="loginUserName">
+                            <input value="jojo" type="text" id="loginUserName" name="loginUserName">
                         </div>
+                        <p>test username: 'jojo'</p>
                         <div class="form-group">
                             <label for="loginPassword">Password</label>
-                            <input type="password" id="loginPassword" name="loginPassword">
+                            <input value="jojo123" type="password" id="loginPassword" name="loginPassword">
                         </div>
+                        <p>test password: 'jojo123'</p>
                         <button class="login-btn" type="submit">login</button>
                     </fieldset>
                 </form>
             </section>
 
             <section class="main-page">
-                <nav class="sidebar">
-                    <ul>
-                        <li id="new-crisis"><i class="fas fa-hands-helping"></i>Recent Crisis</li>
-                        <li id="crisis"><i class="fas fa-donate"></i>My Crisis</li>
-                        <li id="donations"><i class="fas fa-file-invoice-dollar"></i>My Donations</li>
-                        <li id="account"><i class="fas fa-cogs"></i>My Account</li>
-                        <li id="reports"><i class="fas fa-chart-bar"></i>My Reports</li>
-                        <li id="logout"><i class="fas fa-sign-out-alt"></i>Logout</li>
-                    </ul>
-                </nav>
-                <div class="main-container">
-                    <section class="recent-crisis">
-                        <div class="form-group">
-                            <label for="searchCrisis">Search for crisis</label>
-                            <input type="text" id="searchCrisis" name="searchCrisis">
-                            <button class="search-btn">search</button>
-                        </div>
-                        <div class="crisis-container">
-                            <!-- RECENT CRISIS GOES HERE -->
-                        </div>
-                    </section>
 
-                    <section class="my-crisis">
-                        <div class="form-group">
-                            <label for="searchMyCrisis">Search my crisis</label>
-                            <input type="text" id="searchMyCrisis" name="searchMyCrisis">
-                            <button class="search-btn">search</button>
-                        </div>
-                        <div class="my-crisis-container">
-                            <!-- USER CRISIS GOES HERE -->
-                        </div>
-                        <div class="donation-page">
-                            <form class="donation-form">
-                                <fieldset>
-                                    <legend>Donate your $$$</legend>
-                                    <h4 id="crisisTitleDP"></h4>
-                                    <p id="crisisDateDP"></p>
-                                    <p id="IDkeeper">Unfortunately, there are no API for charity available. So, a good old
-                                        fashioned googling is the way to donate. When you are done, go back here and keep
-                                        record of it.</p>
-                                    <div class="form-group">
-                                        <label for="charityName">Charity Name</label>
-                                        <input type="text" id="charityName" name="charityName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="donationAmount">Donation Amount</label>
-                                        <input type="number" id="donationAmount" name="donationAmount">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirmationNumber">Confirmation Number</label>
-                                        <input type="text" id="confirmationNumber" name="confirmationNumber">
-                                    </div>
-                                    <button class="submit-btn" type="submit">submit</button>
-                                    <button class="cancel-donation-btn">cancel</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </section>
+                <section class="recent-crisis">
+                    <div class="form-group">
+                        <label for="searchCrisis">Search for crisis</label>
+                        <input type="text" id="searchCrisis" name="searchCrisis">
+                        <button class="search-btn">search</button>
+                    </div>
+                    <div class="crisis-container">
+                        <!-- RECENT CRISIS GOES HERE -->
+                    </div>
+                </section>
 
-                    <section class="my-donation">
-                        <div class="form-group">
-                            <label for="searchMyDonation">Search my donation</label>
-                            <input type="text" id="searchMyDonation" name="searchMyDonation">
-                            <button class="search-btn">search</button>
-                        </div>
-                        <div class="my-donation-container">
-                            <!-- USER DONATION GOES HERE -->
-                        </div>
-                        <div class="donation-update-page">
-                            <form class="donation-update-form">
-                                <fieldset id="IDUpdater">
-                                    <legend>Update your $$$</legend>
-                                    <div class="form-group">
-                                        <label for="charityUpdate">Charity Name</label>
-                                        <input type="text" id="charityUpdate" name="charityUpdate">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amountUpdate">Donation Amount</label>
-                                        <input type="number" id="amountUpdate" name="amountUpdate">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confNumUpdate">Confirmation Number</label>
-                                        <input type="text" id="confNumUpdate" name="confNumUpdate">
-                                    </div>
-                                    <button class="submit-btn" type="submit">submit</button>
-                                    <button class="cancel-update-btn">cancel</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </section>
+                <section class="my-crisis">
+                    <div class="form-group">
+                        <label for="searchMyCrisis">Search my crisis</label>
+                        <input type="text" id="searchMyCrisis" name="searchMyCrisis">
+                        <button class="search-btn">search</button>
+                    </div>
+                    <div class="my-crisis-container">
+                        <!-- USER CRISIS GOES HERE -->
+                    </div>
+                    <div class="donation-page">
+                        <form class="donation-form">
+                            <fieldset>
+                                <legend>Donate your $$$</legend>
+                                <h4 id="crisisTitleDP"></h4>
+                                <p id="crisisDateDP"></p>
+                                <p id="IDkeeper">Unfortunately, there are no API for charity available. So, a good old fashioned
+                                    googling is the way to donate. When you are done, go back here and keep record of it.</p>
+                                <div class="form-group">
+                                    <label for="charityName">Charity Name</label>
+                                    <input type="text" id="charityName" name="charityName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="donationAmount">Donation Amount</label>
+                                    <input type="number" id="donationAmount" name="donationAmount">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmationNumber">Confirmation Number</label>
+                                    <input type="text" id="confirmationNumber" name="confirmationNumber">
+                                </div>
+                                <button class="submit-btn" type="submit">submit</button>
+                                <button class="cancel-donation-btn">cancel</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </section>
 
-                    <section class="my-account">
-                        <div class="my-account-container">
-                            <!-- USER ACCOUNT DETAILS GOES HERE -->
-                        </div>
-                        <div class="account-update-page">
-                            <form class="account-update-form">
-                                <fieldset>
-                                    <legend>Customize Your Account</legend>
-                                    <div class="form-group">
-                                        <label for="updateFirstName">First Name</label>
-                                        <input type="text" id="updateFirstName" name="updateFirstName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="updateLastName">Last Name</label>
-                                        <input type="text" id="updateLastName" name="updateLastName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="updateEmail">Email</label>
-                                        <input type="email" id="updateEmail" name="updateEmail">
-                                    </div>
-                                    <button class="submit-btn" type="submit">submit</button>
-                                    <button class="cancel-account-update">cancel</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </section>
+                <section class="my-donation">
+                    <div class="form-group">
+                        <label for="searchMyDonation">Search my donation</label>
+                        <input type="text" id="searchMyDonation" name="searchMyDonation">
+                        <button class="search-btn">search</button>
+                    </div>
+                    <div class="my-donation-container">
+                        <!-- USER DONATION GOES HERE -->
+                    </div>
+                    <div class="donation-update-page">
+                        <form class="donation-update-form">
+                            <fieldset id="IDUpdater">
+                                <legend>Update your $$$</legend>
+                                <div class="form-group">
+                                    <label for="charityUpdate">Charity Name</label>
+                                    <input type="text" id="charityUpdate" name="charityUpdate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="amountUpdate">Donation Amount</label>
+                                    <input type="number" id="amountUpdate" name="amountUpdate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confNumUpdate">Confirmation Number</label>
+                                    <input type="text" id="confNumUpdate" name="confNumUpdate">
+                                </div>
+                                <button class="submit-btn" type="submit">submit</button>
+                                <button class="cancel-update-btn">cancel</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </section>
 
-                    <section class="my-report">
-                        <div class="form-group">
-                            <label for="reportYear">Pull Report by Year</label>
-                            <input type="number" min="2000" id="reportYear" name="reportYear">
-                            <button class="pull-report-btn">pull</button>
-                        </div>
-                        <div class="my-report-container">
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </section>
-                </div>
+                <section class="my-account">
+                    <div class="my-account-container">
+                        <!-- USER ACCOUNT DETAILS GOES HERE -->
+                    </div>
+                    <div class="account-update-page">
+                        <form class="account-update-form">
+                            <fieldset>
+                                <legend>Customize Your Account</legend>
+                                <div class="form-group">
+                                    <label for="updateFirstName">First Name</label>
+                                    <input type="text" id="updateFirstName" name="updateFirstName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateLastName">Last Name</label>
+                                    <input type="text" id="updateLastName" name="updateLastName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateEmail">Email</label>
+                                    <input type="email" id="updateEmail" name="updateEmail">
+                                </div>
+                                <button class="submit-btn" type="submit">submit</button>
+                                <button class="cancel-account-update">cancel</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="my-report">
+                    <div class="form-group">
+                        <label for="reportYear">Pull Report by Year</label>
+                        <input type="number" min="2000" id="reportYear" name="reportYear">
+                        <button class="pull-report-btn">pull</button>
+                    </div>
+                    <div class="my-report-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </section>
+
             </section>
         </main>
 
