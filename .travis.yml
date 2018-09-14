@@ -1,11 +1,11 @@
 language: node_js
 node_js: node
 services:
-- mongodb
+  - mongodb
 deploy:
   provider: heroku
   api_key:
     secure: oY+cpig/Q1O6jDSknTF0fdSle1n3otAKkloQ1kKvHiV+iGT4gLqjmBJp1fAkmHLcX8m5uvYogLgiAFDLEc6tBkjggRt0bsdZJ9xe8jXNaGcklDTnqbSs8mvDsoy81qTe+3KDTGW/I2kEtk0thN2lt8mR/HOtuhNEDA852FRnZHv621cB1jEGKmdOhpdgdaQh+GI5A6qA8ZcdwYUtmgD6YTVT6lqFDWc9lTpWwZZMXV0i7aogHESkhUeDLvuAUeBD61d+GGFHAUDHYtjEQHNbbgJc8OF/sSJPzshfET27YZmzx2Pb3hV2pDJcOKQTNHwFZYRYku3BaiaN6bLvmosqku3COMCORpXAHwZnZ7OhX4fCTgT2V5z/PIIECF8YinO9H1xKdisXUXBexodFRKfVZheic63RmA0IBrzyylgYlDZFfhyXcKKlJQSFdnebFY8mFtWvvyAyUqsGxYhZBv2XbOjo+aV7M7B83PWMazvCZDrQjgPI2dFU55ojpqjIIHwSRqbjByMf1B56Im2c+3OTb8Wps/tBauow3gjLfvSMU2uquAD8ttgw2Z3gCf8w1PPKov2rJppoJp6ST6QMt8QWtDe564hSIIYZRIzcDzNcCEKAV6LES2YZHrudsuiXzcxt/e4JkQKBSKH2ywjvcC0XpsKmsGfvM5scdR4E/f+iNDA=
-  app: caritas-auxilium-fullstack-capstone
+  app: caritas-auxilium
   on:
     repo: PeterAndreas77/caritas-auxilium-fullstack-capstone
