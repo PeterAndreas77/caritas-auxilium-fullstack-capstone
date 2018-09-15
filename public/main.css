@@ -2,6 +2,7 @@
 * {
   margin: 0;
   padding: 0;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 a {
@@ -16,12 +17,6 @@ a {
 /* === RECENT CRISIS PAGE STYLE === */
 .recent-crisis {
   margin: 1rem 0.5rem;
-}
-
-/* === MY CRISIS PAGE STYLE === */
-.my-crisis {
-  margin: 1rem 0.5rem;
-  display: none;
 }
 
 /* === MY DONATION PAGE STYLE === */
@@ -61,8 +56,10 @@ a {
   max-width: 100%;
   height: 100vh;
   margin: 0 auto;
+  display: -ms-grid;
   display: grid;
   font-family: "Poppins";
+  -ms-grid-rows: 4rem 1fr 2rem;
   grid-template-rows: 4rem 1fr 2rem;
   grid-template-areas:
     "header"
@@ -70,31 +67,39 @@ a {
     "footer";
 }
 .header {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
   grid-area: header;
   width: 100%;
   height: 4rem;
   z-index: 1;
   color: #eeeeee;
   background-color: #222831;
+  -webkit-box-shadow: 0 4px 10px #393e46;
   box-shadow: 0 4px 10px #393e46;
 }
 .content {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
   grid-area: content;
   text-align: center;
   font-family: "Roboto";
   color: #222831;
 }
 .footer {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
   grid-area: footer;
   padding: 0.25rem 0;
   text-align: center;
   color: #eeeeee;
   background-color: #222831;
+  -webkit-box-shadow: 0 -2px 5px #393e46;
   box-shadow: 0 -2px 5px #393e46;
 }
 .crisis-container,
-.my-crisis-container,
 .my-donation-container {
+  display: -ms-grid;
   display: grid;
   grid-gap: 0.5rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -109,6 +114,7 @@ button {
   font-size: 1rem;
   padding: 0.25rem 0.1rem;
   border: 2px solid #00adb5;
+  -webkit-box-shadow: 0 2px 4px #393e46;
   box-shadow: 0 2px 4px #393e46;
   border-radius: 5px;
   font-weight: bold;
@@ -117,6 +123,7 @@ button:hover {
   cursor: pointer;
   color: #00adb5;
   background-color: #fff;
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -134,10 +141,11 @@ input {
 }
 
 /* === CARD STYLING === */
-.crisis-card,
+.donation-card,
 .account-card {
   padding: 10px 5px;
   border: 2px solid #222831;
+  -webkit-box-shadow: 0 2px 4px #393e46;
   box-shadow: 0 2px 4px #393e46;
   border-radius: 5px;
 }
@@ -158,6 +166,27 @@ input {
 /* Hero Page */
 #hero-page {
   height: 96vh;
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(rgba(255, 255, 255, 0.85)),
+      to(rgba(255, 255, 255, 0.85))
+    ),
+    url(https://images.unsplash.com/photo-1415304282915-d001ddefc7d7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42a14cb2320961b671d5b8b61f7f3522&auto=format&fit=crop&w=1350&q=80)
+      no-repeat center;
+  background: -webkit-linear-gradient(
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.85)
+    ),
+    url(https://images.unsplash.com/photo-1415304282915-d001ddefc7d7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42a14cb2320961b671d5b8b61f7f3522&auto=format&fit=crop&w=1350&q=80)
+      no-repeat center;
+  background: -o-linear-gradient(
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.85)
+    ),
+    url(https://images.unsplash.com/photo-1415304282915-d001ddefc7d7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42a14cb2320961b671d5b8b61f7f3522&auto=format&fit=crop&w=1350&q=80)
+      no-repeat center;
   background: linear-gradient(
       rgba(255, 255, 255, 0.85),
       rgba(255, 255, 255, 0.85)
@@ -180,6 +209,7 @@ input {
   font-size: 1rem;
   padding: 0.5rem 0.25rem;
   border: 2px solid #00adb5;
+  -webkit-box-shadow: 0 2px 4px #393e46;
   box-shadow: 0 2px 4px #393e46;
   border-radius: 10px;
   font-weight: bold;
@@ -188,6 +218,7 @@ input {
   cursor: pointer;
   color: #00adb5;
   background-color: #fff;
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -272,13 +303,15 @@ input:checked + .menu-label:after {
   text-align: center;
   max-height: 0;
   overflow: hidden;
+  -webkit-transition: max-height 0.5s ease-in;
+  -o-transition: max-height 0.5s ease-in;
   transition: max-height 0.5s ease-in;
 }
 input:checked ~ .outside-menu-content {
   max-height: 300px;
 }
 input:checked ~ .inside-menu-content {
-  max-height: 600px;
+  max-height: 500px;
 }
 input#outside-menu,
 input#inside-menu,
@@ -292,11 +325,18 @@ input#inside-menu,
   padding-top: 2rem;
   width: 100%;
   height: 100%;
+  background: -webkit-gradient(
+    linear,
+    right top,
+    left top,
+    from(#eeeeee),
+    to(#00adb5)
+  );
+  background: -webkit-linear-gradient(right, #eeeeee, #00adb5);
+  background: -o-linear-gradient(right, #eeeeee, #00adb5);
   background: linear-gradient(270deg, #eeeeee, #00adb5);
   background-size: 400% 400%;
   -webkit-animation: RegLogBG 30s ease infinite;
-  -moz-animation: RegLogBG 30s ease infinite;
-  -o-animation: RegLogBG 30s ease infinite;
   animation: RegLogBG 30s ease infinite;
 }
 .register-btn {
@@ -315,11 +355,18 @@ input#inside-menu,
   padding-top: 2rem;
   width: 100%;
   height: 100%;
+  background: -webkit-gradient(
+    linear,
+    right top,
+    left top,
+    from(#eeeeee),
+    to(#00adb5)
+  );
+  background: -webkit-linear-gradient(right, #eeeeee, #00adb5);
+  background: -o-linear-gradient(right, #eeeeee, #00adb5);
   background: linear-gradient(270deg, #eeeeee, #00adb5);
   background-size: 400% 400%;
   -webkit-animation: RegLogBG 30s ease infinite;
-  -moz-animation: RegLogBG 30s ease infinite;
-  -o-animation: RegLogBG 30s ease infinite;
   animation: RegLogBG 30s ease infinite;
 }
 .login-btn {
@@ -334,28 +381,6 @@ input#inside-menu,
 
 /* === REGISTRATION & LOGIN PAGE BACKGROUND ANIMATION === */
 @-webkit-keyframes RegLogBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-moz-keyframes RegLogBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-o-keyframes RegLogBG {
   0% {
     background-position: 0% 50%;
   }

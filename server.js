@@ -160,39 +160,43 @@ app.put("/user/update/:username", (req, res) => {
     });
 });
 
-// CRISIS ENDPOINTS
-// handle get all crisis from client (crisis-GET)
-app.get("/crisis-all/:user", (req, res) => {
-  Donation.find({ donor: req.params.user })
-    .where("donated")
-    .equals(false)
-    .then(items => res.json(items.map(item => item.crisis())))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: "Get All Crisis Error" });
-    });
-});
-
-// handle crisis query term from client(crisis-QUERY)
-app.get("/crisis/search/:user/:term", (req, res) => {
+// DONATION ENDPOINTS
+// handle donation query term from client(crisis-QUERY)
+app.get("/donation/search/:user/:term", (req, res) => {
   Donation.find({
     $and: [
       { donor: req.params.user },
       { title: { $regex: req.params.term, $options: "i" } }
     ]
   })
-    .where("donated")
-    .equals(false)
-    .then(items => res.json(items.map(item => item.crisis())))
+    .then(items => res.json(items.map(item => item.donated())))
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: "Get All Crisis Error" });
+      res.status(500).json({ message: "Get All Donation Error" });
     });
 });
 
-// handle create crisis from client (crisis-POST)
-app.post("/crisis/create", (req, res) => {
-  const requiredFields = ["title", "date", "details"];
+// handle donation get requests from client (donation-GET)
+app.get("/donation-all/:user", (req, res) => {
+  Donation.find({ donor: req.params.user })
+    .then(items => res.json(items.map(item => item.donated())))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Get All Donation Error" });
+    });
+});
+
+// handle donation creation from client (donation-POST)
+app.post("/donation/create", (req, res) => {
+  const requiredFields = [
+    "title",
+    "charity",
+    "amount",
+    "confNum",
+    "created",
+    "year",
+    "donor"
+  ];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body))
@@ -200,59 +204,16 @@ app.post("/crisis/create", (req, res) => {
   }
   Donation.create({
     title: req.body.title,
-    date: req.body.date,
-    details: req.body.details,
+    charity: req.body.charity,
+    amount: req.body.amount,
+    confNum: req.body.confNum,
+    created: req.body.created,
+    year: req.body.year,
     donor: req.body.donor
   })
-    .then(item => res.status(201).json(item.crisis()))
+    .then(item => res.status(201).json(item.donated()))
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: "Crisis Creation Error" });
-    });
-});
-
-// handle crisis deletion from client (crisis-DELETE)
-app.delete("/crisis/delete/:id", function(req, res) {
-  Donation.findByIdAndRemove(req.params.id)
-    .then(() => res.status(204).end())
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ message: "Crisis Deletion Error" });
-    });
-});
-
-// DONATION ENDPOINTS
-// handle donation get requests from client (donation-GET)
-app.get("/donation-all/:user", (req, res) => {
-  Donation.find({ donor: req.params.user })
-    .where("donated")
-    .equals(true)
-    .then(items => res.json(items.map(item => item.donation())))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: "Get All Donation Error" });
-    });
-});
-// handle donation creation from client (donation-POST)
-app.put("/donation/create/:id", (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id))
-    res.status(400).json({ message: "parameter and body IDs must match" });
-  let newObject = {};
-  let newFields = [
-    "charity",
-    "amount",
-    "confNum",
-    "created",
-    "year",
-    "donated"
-  ];
-  newFields.forEach(field => {
-    if (field in req.body) newObject[field] = req.body[field];
-  });
-  Donation.findByIdAndUpdate(req.params.id, { $set: newObject }, { new: true })
-    .then(() => res.status(204).end())
-    .catch(err => {
-      console.error(err);
       res.status(500).json({ message: "Donation Creation Error" });
     });
 });
@@ -274,23 +235,6 @@ app.put("/donation/update/:id", (req, res) => {
     });
 });
 
-// handle donation query term from client(crisis-QUERY)
-app.get("/donation/search/:user/:term", (req, res) => {
-  Donation.find({
-    $and: [
-      { donor: req.params.user },
-      { title: { $regex: req.params.term, $options: "i" } }
-    ]
-  })
-    .where("donated")
-    .equals(true)
-    .then(items => res.json(items.map(item => item.donation())))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: "Get All Crisis Error" });
-    });
-});
-
 // handle donation deletion from client (donation-DELETE)
 app.delete("/donation/delete/:id", (req, res) => {
   Donation.findByIdAndRemove(req.params.id)
@@ -305,7 +249,7 @@ app.delete("/donation/delete/:id", (req, res) => {
 app.get("/report/:user/:year", (req, res) => {
   const reportYear = parseInt(req.params.year);
   Donation.aggregate([
-    { $match: { donor: req.params.user, donated: true, year: reportYear } },
+    { $match: { donor: req.params.user, year: reportYear } },
     {
       $group: {
         _id: { month: { $month: "$created" } },

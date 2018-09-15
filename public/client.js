@@ -40,7 +40,7 @@ function renderRecentCrisis(result) {
   let recentCrisis = [];
   // For Each Index in Data, Add them to the Array
   for (let i in data) {
-    recentCrisis += `<div class="crisis-card" crisis-id="${data[i].id}">
+    recentCrisis += `<div class="donation-card" crisis-id="${data[i].id}">
     <p>${data[i].fields.title}</p>
     <p href="#" class="read-more button">read more</p>
     </div>`;
@@ -76,101 +76,11 @@ function renderSingleCrisis(result) {
   <h4 class="crisis-title">${data.title}</h4>
   <date class="crisis-date">${formatDate}</date>
   ${data["body-html"]}
-  <button class="add-crisis-btn">add</button>
+  <button class="donate-crisis-btn">donate</button>
   <button class="cancel-crisis-btn">cancel</button>
   </div>`;
   // Insert Single Crisis into the DOM
   $(".crisis-container").html(singleCrisis);
-}
-
-// Function to Create Chosen Crisis into the Database
-function createCrisis(newObject) {
-  // Make a POST Request to our Endpoint
-  $.ajax({
-    type: "POST",
-    url: "/crisis/create",
-    data: JSON.stringify(newObject),
-    dataType: "json",
-    contentType: "application/json"
-  })
-    // If the request is Successful
-    .done(() => {
-      // Hide recent-crisis
-      $(".recent-crisis").hide();
-      const loggedInUser = localStorage.getItem("loggedInUser");
-      getMyCrisis(loggedInUser);
-      // Show my-crisis
-      $(".my-crisis").show();
-    })
-    // If the Request Failed, Log the Error
-    .fail(err => console.log(err));
-}
-
-//====== MY CRISIS FUNCTIONS ======
-// Function to Get Logged User Crisis from the Database
-function getMyCrisis(user) {
-  // Make a GET Request to our Endpoint
-  $.ajax({
-    type: "GET",
-    url: `/crisis-all/${user}`,
-    dataType: "json",
-    contentType: "application/json"
-  })
-    // If Request is Successful, Render the Result
-    .done(result => renderMyCrisis(result))
-    // If the Request Failed, Log the Error
-    .fail(err => console.log(err));
-}
-
-// Function to Render User's Crisis to the Page
-function renderMyCrisis(data) {
-  // Setup an Empty Array
-  let myCrisis = [];
-  // For Each Index in the Data, Add them to the Array
-  for (let i in data) {
-    myCrisis += `<div class="crisis-card" crisis-id="${data[i].id}">
-    <h4>${data[i].title}</h4>
-    <p>${data[i].date}</p>
-    <button class="donate-btn">donate</button>
-    <button class="delete-crisis-btn">delete</button>
-    </div>`;
-  }
-  // Insert the Array into the Container inside the DOM
-  $(".my-crisis-container").html(myCrisis);
-}
-
-// Function to Search for My Crisis
-function searchMyCrisis(user, term) {
-  // Make an AJAX Call to ReliefWebAPI with Search Term in Request Body
-  $.ajax({
-    type: "GET",
-    url: `/crisis/search/${user}/${term}`,
-    dataType: "json",
-    contentType: "application/json"
-  })
-    // If Done, Render the Result
-    .done(result => renderMyCrisis(result))
-    // If Fail, Log the Error
-    .fail(err => console.log(err));
-}
-
-// Function to Delete a User's Crisis from the Database
-function deleteMyCrisis(id) {
-  // Make a DELETE Request to our Endpoint with the Crisis ID
-  $.ajax({
-    type: "DELETE",
-    url: `/crisis/delete/${id}`,
-    dataType: "json",
-    contentType: "application/json"
-  })
-    // If Request is Successful
-    .done(() => {
-      // Rerender the Page
-      const loggedInUser = localStorage.getItem("loggedInUser");
-      getMyCrisis(loggedInUser);
-    })
-    // If the Request Failed, Log the Error
-    .fail(err => console.log(err));
 }
 
 //====== MY DONATION FUNCTIONS ======
@@ -195,7 +105,7 @@ function renderMyDonation(data) {
   let myDonation = [];
   // For each Index in Data, Add them to the Array
   for (let i in data) {
-    myDonation += `<div class="crisis-card" donation-id="${data[i].id}">
+    myDonation += `<div class="donation-card" donation-id="${data[i].id}">
     <h4>${data[i].title}</h4>
     <p>${data[i].confNum}</p>
     <p><strong>${data[i].amount}</strong> to ${data[i].charity}</p>
@@ -211,16 +121,16 @@ function renderMyDonation(data) {
 function createMyDonation(newObject) {
   // Make a PUT Request to the Database with the ID
   $.ajax({
-    type: "PUT",
-    url: `/donation/create/${newObject.id}`,
+    type: "POST",
+    url: `/donation/create`,
     data: JSON.stringify(newObject),
     dataType: "json",
     contentType: "application/json"
   })
     // If Request is Successful
     .done(() => {
-      // Hide my-crisis
-      $(".my-crisis").hide();
+      // Hide recent-crisis
+      $(".recent-crisis").hide();
       const loggedInUser = localStorage.getItem("loggedInUser");
       // Render User Donations
       getMyDonation(loggedInUser);
@@ -264,7 +174,16 @@ function searchMyDonation(user, term) {
     contentType: "application/json"
   })
     // If Done, Render the Result
-    .done(result => renderMyDonation(result))
+    .done(result => {
+      if (!$.isArray(result) || !result.length) {
+        $("#searchMyDonation").val("");
+        alert("no result");
+      } else {
+        $(".donation-update-page").hide();
+        $(".my-donation-container").show();
+        renderMyDonation(result);
+      }
+    })
     // If Fail, Log the Error
     .fail(err => console.log(err));
 }
@@ -533,7 +452,6 @@ $(document).ready(() => {
   // When User Clicks "RECENT CRISIS LINK"
   $("#new-crisis").on("click", () => {
     // Hide other Sections
-    $(".my-crisis").hide();
     $(".my-donation").hide();
     $(".my-account").hide();
     $(".my-report").hide();
@@ -553,14 +471,22 @@ $(document).ready(() => {
   $(".crisis-container").on("click", ".read-more", e => {
     // Get the ID and Pass it to ReadMore Function
     let crisisID = $(e.currentTarget)
-      .closest(".crisis-card")
+      .closest(".donation-card")
       .attr("crisis-id");
     crisisReadMore(crisisID);
   });
 
-  // When User Clicks "ADD-BUTTON" on a SINGLE CRISIS
-  $(".crisis-container").on("click", ".add-crisis-btn", e => {
-    // Get the Values from Input Fields
+  // When User Clicks "CANCEL-BUTTON" on a SINGLE CRISIS
+  $(".crisis-container").on("click", ".cancel-crisis-btn", () => {
+    $(".donation-page").hide();
+    $(".crisis-container").show();
+    // Repopulate crisis-container with Recent Crisis
+    populateRecentCrisis();
+  });
+
+  // When Users Clicks "DONATE-BUTTON" on "SINGLE CRISIS"
+  $(".crisis-container").on("click", ".donate-crisis-btn", e => {
+    // Get the Values from rendered DOM
     const title = $(e.currentTarget)
       .closest(".single-crisis")
       .children(".crisis-title")
@@ -569,91 +495,17 @@ $(document).ready(() => {
       .closest(".single-crisis")
       .children(".crisis-date")
       .text();
-    const details = $(e.currentTarget)
-      .closest(".single-crisis")
-      .attr("crisis-body");
-    // Store Date in Formatted Forms
-    const formatDate = moment(date).format("LL");
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    // Create a New Object to Pass on
-    const newCrisisObject = {
-      title: title,
-      date: formatDate,
-      details: details,
-      donor: loggedInUser
-    };
-    // Pass the Object as a New Crisis
-    createCrisis(newCrisisObject);
-  });
-
-  // When User Clicks "CANCEL-BUTTON" on a SINGLE CRISIS
-  $(".crisis-container").on("click", ".cancel-crisis-btn", () => {
-    // Repopulate crisis-container with Recent Crisis
-    populateRecentCrisis();
-  });
-
-  //====== MY CRISIS PAGE HANDLERS ======
-  // When Users Clicks "MY CRISIS LINK"
-  $("#crisis").on("click", () => {
-    // Hide other Sections
-    $(".recent-crisis").hide();
-    $(".my-donation").hide();
-    $(".my-account").hide();
-    $(".my-report").hide();
-    // Show and Render User's Crisis
-    $(".my-crisis").show();
-    $(".my-crisis-container").show();
-    $(".donation-page").hide();
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    getMyCrisis(loggedInUser);
-  });
-
-  // When User SEARCH for CRISIS
-  $(".search-my-crisis").on("click", () => {
-    // Get the Value and Pass it to Search Function
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    const query = $("#searchMyCrisis").val();
-    searchMyCrisis(loggedInUser, query);
-  });
-
-  // When Users Clicks "DONATE-BUTTON" on "MY CRISIS"
-  $(".my-crisis").on("click", ".donate-btn", e => {
-    // Get the Values from rendered DOM
-    const title = $(e.currentTarget)
-      .closest(".crisis-card")
-      .children("h4")
-      .text();
-    const date = $(e.currentTarget)
-      .closest(".crisis-card")
-      .children("date")
-      .text();
-    const id = $(e.currentTarget)
-      .closest(".crisis-card")
-      .attr("crisis-id");
     // Reset the ID
     $(e.currentTarget)
-      .closest(".crisis-card")
+      .closest(".donation-card")
       .attr("crisis-id", "");
-    // Hide my-crisis-container
-    $(".my-crisis-container").hide();
+    // Hide crisis-container
+    $(".crisis-container").hide();
     // Show donation-page
     $(".donation-page").show();
-    $(".my-donation-page").show();
-    $(".donation-update-page").hide();
     // Pass the Values to donation-page
-    $("#crisisTitleDP").html(title);
-    $("#crisisDateDP").html(date);
-    $("#IDkeeper").attr("crisis-id", id);
-  });
-
-  // When User Clicks "DELETE-BUTTON" on "MY CRISIS"
-  $(".my-crisis").on("click", ".delete-crisis-btn", e => {
-    // Get the ID from Targeted Crisis Card
-    let IDtoDelete = $(e.currentTarget)
-      .closest(".crisis-card")
-      .attr("crisis-id");
-    // Pass the ID to Delete that Crisis
-    deleteMyCrisis(IDtoDelete);
+    $("#crisisTitle").html(title);
+    $("#crisisDate").html(date);
   });
 
   // When User Clicks "SUBMIT-BUTTON" to DONATE
@@ -661,42 +513,29 @@ $(document).ready(() => {
     // Prevent Bubbling
     e.preventDefault();
     // Get the Values from Input Fields
-    const id = $("#IDkeeper").attr("crisis-id");
+    const title = $("#crisisTitle").text();
     const charity = $("#charityName").val();
     const amount = $("#donationAmount").val();
     const confNum = $("#confirmationNumber").val();
     const created = moment().format("L");
     const year = moment(created).format("YYYY");
+    const loggedInUser = localStorage.getItem("loggedInUser");
     // Reset the Form's Values
     $("#charityName").val("");
     $("#donationAmount").val("");
     $("#confirmationNumber").val("");
     // Create New Donation Object to Pass on
     const newDonationObject = {
-      id: id,
+      title: title,
       charity: charity,
       amount: amount,
       confNum: confNum,
       created: created,
       year: year,
-      donated: true
+      donor: loggedInUser
     };
     // Pass Donation Object to be Stored in the Database
     createMyDonation(newDonationObject);
-  });
-
-  // When User Clicks "CANCEL-BUTTON" to CANCEL DONATE
-  $(".my-crisis").on("click", ".cancel-donation-btn", e => {
-    // Prevent Bubbling
-    e.preventDefault();
-    // Reset the Values on the Form
-    $("#charityName").val("");
-    $("#donationAmount").val("");
-    $("#confirmationNumber").val("");
-    // Show my-crisis-container
-    $(".my-crisis-container").show();
-    // Hide donation-page
-    $(".donation-page").hide();
   });
 
   //====== MY DONATIONS PAGE HANDLERS ======
@@ -705,7 +544,6 @@ $(document).ready(() => {
     // Hide Other Sections
     $(".recent-crisis").hide();
     $(".my-account").hide();
-    $(".my-crisis").hide();
     $(".my-report").hide();
     // Show and Render User's Donations
     $(".my-donation").show();
@@ -714,7 +552,8 @@ $(document).ready(() => {
   });
 
   // When User SEARCH for DONATIONS
-  $(".search-donation").on("click", () => {
+  $(".my-donation").on("click", ".search-donation", e => {
+    e.preventDefault();
     // Get the Value and Pass it to Search Function
     const loggedInUser = localStorage.getItem("loggedInUser");
     const query = $("#searchMyDonation").val();
@@ -725,7 +564,7 @@ $(document).ready(() => {
   $(".my-donation").on("click", ".update-donation-btn", e => {
     // Get the ID from the Rendered Donation
     const id = $(e.currentTarget)
-      .closest(".crisis-card")
+      .closest(".donation-card")
       .attr("donation-id");
     // Hide my-donation-container
     $(".my-donation-container").hide();
@@ -739,7 +578,7 @@ $(document).ready(() => {
   $(".my-donation").on("click", ".delete-donation-btn", e => {
     // Get the ID from the donation-card
     const IDtoDelete = $(e.currentTarget)
-      .closest(".crisis-card")
+      .closest(".donation-card")
       .attr("donation-id");
     // Pass the ID to Delete the Donation
     deleteMyDonation(IDtoDelete);
@@ -788,7 +627,6 @@ $(document).ready(() => {
   $("#account").on("click", () => {
     // Hide Other Sections
     $(".recent-crisis").hide();
-    $(".my-crisis").hide();
     $(".my-donation").hide();
     $(".my-report").hide();
     // Show and Render User's Account Info
@@ -846,7 +684,6 @@ $(document).ready(() => {
   $("#reports").on("click", () => {
     // Hide Other Sections
     $(".recent-crisis").hide();
-    $(".my-crisis").hide();
     $(".my-donation").hide();
     $(".my-account").hide();
     // Show and Render User's Report
