@@ -105,9 +105,10 @@ function renderMyDonation(data) {
   let myDonation = [];
   // For each Index in Data, Add them to the Array
   for (let i in data) {
+    let formattedDate = moment(data[i].created).format("LL");
     myDonation += `<div class="donation-card" donation-id="${data[i].id}">
     <h4 class="donation-title">${data[i].title}</h4>
-    <p class='donation-date'>${data[i].created}</p>
+    <p class='donation-date'>Created: ${formattedDate}</p>
     <p>Confirmation #: ${data[i].confNum}</p>
     <p>$<strong>${data[i].amount}</strong> to ${data[i].charity}</p>
     <button class="update-donation-btn">update</button>
@@ -515,8 +516,7 @@ $(document).ready(() => {
     const charity = $("#charityName").val();
     const amount = $("#donationAmount").val();
     const confNum = $("#confirmationNumber").val();
-    const created = moment().format("LL");
-    const year = moment(created).format("YYYY");
+    const year = moment().format("YYYY");
     const loggedInUser = localStorage.getItem("loggedInUser");
     // Reset the Form's Values
     $("#charityName").val("");
@@ -528,7 +528,6 @@ $(document).ready(() => {
       charity: charity,
       amount: amount,
       confNum: confNum,
-      created: created,
       year: year,
       donor: loggedInUser
     };

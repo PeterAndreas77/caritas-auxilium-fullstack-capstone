@@ -143,6 +143,7 @@ input {
 /* === CARD STYLING === */
 .donation-card,
 .account-card {
+  line-height: 1.35;
   padding: 10px 5px;
   border: 2px solid #222831;
   -webkit-box-shadow: 0 2px 4px #393e46;
@@ -237,9 +238,11 @@ input {
 }
 .feature-set,
 .set-title {
-  margin: 2rem 0;
   text-align: left;
   line-height: 1.4;
+}
+.set-title p {
+  font-size: 1.3rem;
 }
 
 /* How To Page */
@@ -257,6 +260,7 @@ input {
 }
 .howto-content {
   text-align: left;
+  font-size: 1.3rem;
 }
 .howto-content ol li {
   line-height: 1.4;

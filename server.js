@@ -193,7 +193,6 @@ app.post("/donation/create", (req, res) => {
     "charity",
     "amount",
     "confNum",
-    "created",
     "year",
     "donor"
   ];
@@ -207,7 +206,6 @@ app.post("/donation/create", (req, res) => {
     charity: req.body.charity,
     amount: req.body.amount,
     confNum: req.body.confNum,
-    created: req.body.created,
     year: req.body.year,
     donor: req.body.donor
   })
