@@ -1,7 +1,6 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const moment = require("moment");
 
 const donationSchema = new mongoose.Schema({
   title: { type: String },
@@ -9,7 +8,7 @@ const donationSchema = new mongoose.Schema({
   charity: { type: String },
   amount: { type: Number },
   confNum: { type: String },
-  created: { type: Date, default: moment().format("L") },
+  created: { type: String },
   year: { type: Number }
 });
 

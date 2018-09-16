@@ -106,9 +106,10 @@ function renderMyDonation(data) {
   // For each Index in Data, Add them to the Array
   for (let i in data) {
     myDonation += `<div class="donation-card" donation-id="${data[i].id}">
-    <h4>${data[i].title}</h4>
-    <p>${data[i].confNum}</p>
-    <p><strong>${data[i].amount}</strong> to ${data[i].charity}</p>
+    <h4 class="donation-title">${data[i].title}</h4>
+    <p class='donation-date'>${data[i].created}</p>
+    <p>Confirmation #: ${data[i].confNum}</p>
+    <p>$<strong>${data[i].amount}</strong> to ${data[i].charity}</p>
     <button class="update-donation-btn">update</button>
     <button class="delete-donation-btn">delete</button>
     </div>`;
@@ -478,9 +479,6 @@ $(document).ready(() => {
 
   // When User Clicks "CANCEL-BUTTON" on a SINGLE CRISIS
   $(".crisis-container").on("click", ".cancel-crisis-btn", () => {
-    $(".donation-page").hide();
-    $(".crisis-container").show();
-    // Repopulate crisis-container with Recent Crisis
     populateRecentCrisis();
   });
 
@@ -517,7 +515,7 @@ $(document).ready(() => {
     const charity = $("#charityName").val();
     const amount = $("#donationAmount").val();
     const confNum = $("#confirmationNumber").val();
-    const created = moment().format("L");
+    const created = moment().format("LL");
     const year = moment(created).format("YYYY");
     const loggedInUser = localStorage.getItem("loggedInUser");
     // Reset the Form's Values
@@ -536,6 +534,17 @@ $(document).ready(() => {
     };
     // Pass Donation Object to be Stored in the Database
     createMyDonation(newDonationObject);
+  });
+
+  // When User Clicks "CANCEL-BUTTON" on "DONATE FORM"
+  $(".recent-crisis").on("click", ".cancel-donation-btn", e => {
+    e.preventDefault();
+    $("#charityName").val("");
+    $("#donationAmount").val("");
+    $("#confirmationNumber").val("");
+    $(".donation-page").hide();
+    populateRecentCrisis();
+    $(".crisis-container").show();
   });
 
   //====== MY DONATIONS PAGE HANDLERS ======
@@ -566,12 +575,22 @@ $(document).ready(() => {
     const id = $(e.currentTarget)
       .closest(".donation-card")
       .attr("donation-id");
+    const title = $(e.currentTarget)
+      .closest(".donation-card")
+      .children(".donation-title")
+      .text();
+    const date = $(e.currentTarget)
+      .closest(".donation-card")
+      .children(".donation-date")
+      .text();
     // Hide my-donation-container
     $(".my-donation-container").hide();
     // Show donation-update-page
     $(".donation-update-page").show();
     // Pass the ID to donation-update-page
     $("#IDUpdater").attr("donation-id", id);
+    $("#titleUpdater").text(title);
+    $("#dateUpdater").text(date);
   });
 
   // When User Clicks "DELETE-BUTTON" on "MY DONATIONS"

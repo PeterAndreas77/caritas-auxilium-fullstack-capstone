@@ -2,7 +2,7 @@
 // importing middlewares
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose").set("debug", true);
+const mongoose = require("mongoose"); //set("debug", true) *for debugging*
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 
@@ -172,7 +172,7 @@ app.get("/donation/search/:user/:term", (req, res) => {
     .then(items => res.json(items.map(item => item.donated())))
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: "Get All Donation Error" });
+      res.status(500).json({ message: "Search Donation Error" });
     });
 });
 
@@ -182,7 +182,7 @@ app.get("/donation-all/:user", (req, res) => {
     .then(items => res.json(items.map(item => item.donated())))
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: "Get All Donation Error" });
+      res.status(500).json({ message: "Get Donation Error" });
     });
 });
 
