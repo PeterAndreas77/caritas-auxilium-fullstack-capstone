@@ -2,7 +2,7 @@
 // importing middlewares
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose"); //set("debug", true) *for debugging*
+const mongoose = require("mongoose"); //*for debugging* .set("debug", true)
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 
@@ -119,7 +119,7 @@ app.post("/users/login", (req, res) => {
 });
 
 // user account details
-app.get("/user/:user", (req, res) => {
+app.get("/users/:user", (req, res) => {
   User.findOne({ username: req.params.user })
     .then(user => {
       console.log(user);
@@ -134,7 +134,7 @@ app.get("/user/:user", (req, res) => {
 });
 
 // user update details
-app.put("/user/update/:username", (req, res) => {
+app.put("/users/update/:username", (req, res) => {
   if (
     !(
       req.params.username &&
@@ -163,6 +163,7 @@ app.put("/user/update/:username", (req, res) => {
 // DONATION ENDPOINTS
 // handle donation query term from client(crisis-QUERY)
 app.get("/donation/search/:user/:term", (req, res) => {
+  console.log(req.param.term);
   Donation.find({
     $and: [
       { donor: req.params.user },
@@ -221,7 +222,7 @@ app.put("/donation/update/:id", (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id))
     res.status(400).json({ message: "parameter and body IDs must match" });
   let newObject = {};
-  let newFields = ["charity", "amount", "confNum"];
+  let newFields = ["title", "charity", "amount", "confNum"];
   newFields.forEach(field => {
     if (field in req.body) newObject[field] = req.body[field];
   });
@@ -256,10 +257,7 @@ app.get("/report/:user/:year", (req, res) => {
       }
     }
   ])
-    .then(item => {
-      res.json(item);
-      console.log(item);
-    })
+    .then(item => res.json(item))
     .catch(err => {
       console.log(err);
       res.status(500).json({ message: "Report Generation Error" });
